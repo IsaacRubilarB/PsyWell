@@ -1,0 +1,126 @@
+.carousel-container {
+  position: relative;
+  max-width: 90%;
+  margin: 100px auto; /* Aumentar el margen superior para separar el contenedor del navbar */
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  box-shadow: 0px 0px 35px 5px rgba(255, 193, 7, 0.5);
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-card {
+  min-width: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.card-content {
+  text-align: center;
+  max-width: 70%;
+}
+
+.card-image {
+  width: 95%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.card-image:hover {
+  transform: scale(1.05); /* Efecto de hover para la imagen */
+}
+
+h2 {
+  color: #ffc107;
+  font-size: 32px;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 25px;
+}
+
+.btn-ver,
+.btn-subir {
+  padding: 15px 25px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-ver {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-ver:hover {
+  background-color: #45a049;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-subir {
+  background-color: #ffc107;
+  color: white;
+}
+
+.btn-subir:hover {
+  background-color: #ffb700;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.control-prev,
+.control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  padding: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.control-prev {
+  left: 20px;
+}
+
+.control-next {
+  right: 20px;
+}
+
+.control-prev:hover,
+.control-next:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 4px 10px rgba(255, 193, 7, 0.6);
+}

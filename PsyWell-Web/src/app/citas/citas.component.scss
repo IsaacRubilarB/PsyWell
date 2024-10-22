@@ -1,0 +1,128 @@
+.citas-container {
+  padding: 20px;
+  background-color: rgba(136, 178, 184, 0.7); /* Fondo celeste */
+  border-radius: 15px;
+  max-width: 1100px;
+  margin: 100px auto;
+  color: #080808; /* Texto oscuro */
+  box-shadow: 0 0 15px 3px #ffc107; /* Sombra luminosa dorada */
+  position: relative;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+    color: #ffffff; /* Título blanco */
+    text-shadow: 0px 0px 10px #050505; /* Sombra luminosa dorada */
+  }
+
+  .cita-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cita-card {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(147, 207, 150, 0); /* Fondo transparente */
+    border-radius: 10px;
+    border-left: 5px solid #ffc107; /* Borde dorado */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    gap: 15px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('/assets/ondas.png') no-repeat center;
+      background-size: cover;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    &:hover {
+      background-color: rgba(70, 70, 70, 0.9); /* Cambio de color en hover */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra en hover */
+    }
+
+    .cita-imagen {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      z-index: 1;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .cita-info {
+      color: #ffffff;
+      z-index: 1;
+      flex: 1;
+
+      h3 {
+        font-size: 22px;
+        color: #ffc107; /* Título en dorado */
+        margin: 0;
+      }
+
+      h4 {
+        font-size: 18px;
+        margin: 5px 0;
+        color: #d4d4d4; /* Subtítulo gris claro */
+      }
+
+      p {
+        font-size: 16px;
+        color: #ffffff; /* Texto blanco */
+      }
+    }
+
+    .estado-hover {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover .estado-hover {
+      opacity: 1;
+    }
+
+    .estado-hover.pendiente {
+      background-color: #ffc107; /* Fondo dorado para pendientes */
+    }
+
+    .estado-hover.finalizada {
+      background-color: #429e0c; /* Fondo verde para finalizadas */
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .citas-container {
+    padding: 15px;
+  }
+
+  .cita-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

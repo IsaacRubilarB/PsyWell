@@ -1,0 +1,132 @@
+<div class="calendar-container">
+  <!-- Formulario para Crear Evento -->
+  <div class="form-wrapper" *ngIf="isLogin">
+    <h2>Crear un Nuevo Evento</h2>
+    <form (ngSubmit)="createEvent()">
+      <!-- Campo de Resumen del Evento -->
+      <div class="form-group">
+        <label for="summary">Resumen:</label>
+        <input
+          type="text"
+          [(ngModel)]="eventSummary"
+          name="summary"
+          id="summary"
+          required
+          placeholder="Introduce el resumen del evento"
+        />
+      </div>
+
+      <!-- Campo de Descripción del Evento -->
+      <div class="form-group">
+        <label for="description">Descripción:</label>
+        <input
+          type="text"
+          [(ngModel)]="eventDescription"
+          name="description"
+          id="description"
+          placeholder="Introduce una descripción (opcional)"
+        />
+      </div>
+
+      <!-- Campo de Ubicación del Evento -->
+      <div class="form-group">
+        <label for="location">Ubicación:</label>
+        <input
+          type="text"
+          [(ngModel)]="eventLocation"
+          name="location"
+          id="location"
+          placeholder="Introduce la ubicación (opcional)"
+        />
+      </div>
+
+      <!-- Campo de Fecha y Hora de Inicio del Evento -->
+      <div class="form-group">
+        <label for="start">Fecha y Hora de Inicio:</label>
+        <input
+          type="datetime-local"
+          [(ngModel)]="eventStart"
+          name="start"
+          id="start"
+          required
+          placeholder="Fecha y hora de inicio"
+        />
+      </div>
+
+      <!-- Campo de Fecha y Hora de Finalización del Evento -->
+      <div class="form-group">
+        <label for="end">Fecha y Hora de Finalización:</label>
+        <input
+          type="datetime-local"
+          [(ngModel)]="eventEnd"
+          name="end"
+          id="end"
+          required
+          placeholder="Fecha y hora de finalización"
+        />
+      </div>
+
+      <!-- Campo para Agregar Asistentes -->
+      <div class="form-group">
+        <label for="attendees">Asistentes (Emails separados por coma):</label>
+        <input
+          type="text"
+          [(ngModel)]="eventAttendees"
+          name="attendees"
+          id="attendees"
+          placeholder="Introduce los emails separados por coma"
+        />
+      </div>
+
+      <!-- Selector de Calendario -->
+      <div class="form-group" *ngIf="listaCalendarios.length > 0">
+        <label for="calendar">Selecciona Calendario:</label>
+        <select [(ngModel)]="selectedCalendarId" name="calendar" id="calendar">
+          <option *ngFor="let calendar of listaCalendarios" [value]="calendar.id">
+            {{ calendar.summary }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Botón para Crear Evento -->
+      <button type="submit" class="submit-button">Crear Evento</button>
+    </form>
+  </div>
+
+  <!-- Botones de Autenticación -->
+  <div class="auth-buttons">
+    <button (click)="signIn()" *ngIf="!isLogin" title="Iniciar sesión en Google" class="auth-button">Iniciar Sesión</button>
+    <button (click)="signOut()" *ngIf="isLogin" title="Cerrar sesión en Google" class="auth-button">Cerrar Sesión</button>
+  </div>
+
+  <!-- Mensaje de Estado -->
+  <div *ngIf="statusMessage" class="status-message">
+    {{ statusMessage }}
+  </div>
+
+  <!-- Botón para Obtener Eventos -->
+  <div class="get-events" *ngIf="isLogin">
+    <button (click)="getEvents()" class="get-events-button">Obtener Eventos</button>
+  </div>
+
+  <!-- Lista de Eventos Existentes -->
+  <h3 *ngIf="listaEventos.length > 0">Eventos Existentes</h3>
+  <ul *ngIf="listaEventos.length > 0">
+    <li *ngFor="let evento of listaEventos">
+      <strong>{{ evento.summary }}</strong> - {{ evento.start?.dateTime | date: 'short' }} a {{ evento.end?.dateTime | date: 'short' }}
+      <br />
+      <em>Ubicación:</em> {{ evento.location || 'No especificada' }}
+      <br />
+      <a [href]="evento.htmlLink" target="_blank">Ver en Google Calendar</a>
+    </li>
+  </ul>
+
+  <!-- Mensaje cuando no hay eventos -->
+  <p *ngIf="listaEventos.length === 0 && isLogin">No hay eventos disponibles en el calendario seleccionado.</p>
+</div>
+
+<div class="back-side" *ngIf="!isLogin">
+  <h2>Autenticación Google</h2>
+  <button (click)="signIn()" class="auth-button">Iniciar Sesión con Google</button>
+  <button (click)="signOut()" class="auth-button">Cerrar Sesión</button>
+</div>

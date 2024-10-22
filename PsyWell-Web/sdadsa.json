@@ -1,0 +1,54 @@
+{
+    "71837284": {
+        "route_smsc_key": "soporte-oficina",
+        "router_id": "backup"
+    },
+    "72457395": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    },
+    "72457397": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    },
+    "72457398": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    },
+    "72457400": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    },
+    "72460463": {
+        "route_smsc_key": "socofar-route-3",
+        "router_id": "backup"
+    },
+    "72460635": {
+        "route_smsc_key": "socofar-route-3",
+        "router_id": "backup"
+    },
+    "72461017": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    },
+    "72461444": {
+        "route_smsc_key": "soporte-oficina",
+        "router_id": "backup"
+    },
+    "72461510": {
+        "route_smsc_key": "soporte-oficina",
+        "router_id": "backup"
+    },
+    "72461558": {
+        "route_smsc_key": "soporte-oficina",
+        "router_id": "backup"
+    },
+    "72461672": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    },
+    "72461759": {
+        "route_smsc_key": "default",
+        "router_id": "backup"
+    }
+}

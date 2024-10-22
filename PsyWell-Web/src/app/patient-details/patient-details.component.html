@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="patient-details">
+  <h1>Detalles del Paciente</h1>
+  <div class="patient-profile">
+    <img class="patient-photo" src="assets/patient.png" alt="Foto del paciente" />
+    <div class="patient-info">
+      <h2>{{ patientDetails.name }}</h2>
+      <p><strong>Edad:</strong> {{ patientDetails.age }} Años</p>
+      <p><strong>Diagnóstico:</strong> {{ patientDetails.diagnosis }}</p>
+      <p><strong>Notas:</strong> {{ patientDetails.notes }}</p>
+    </div>
+  </div>
+
+  <div class="charts-container">
+    <!-- Animación del Corazón y BPM dinámico -->
+    <div class="chart-wrapper">
+      <div #heartAnimation class="lottie-animation"></div>
+      <p class="bpm-display">{{ bpm }} BPM</p> <!-- BPM -->
+      <p>Frecuencia Cardíaca</p>
+    </div>
+  
+    <!-- Animación de horas de sueño -->
+    <div class="chart-wrapper">
+      <div #sleepAnimation class="lottie-animation-sleep"></div>
+      <p class="sleep-display">{{ sleepHours }} hrs</p> <!-- Sleep hours -->
+      <p>Horas de Sueño</p>
+    </div>
+  
+    <!-- Velocímetro para el estrés -->
+    <div class="chart-wrapper">
+      <div #stressAnimation class="lottie-animation-stress"></div>
+      <p class="stress-display">{{ stressLevel }}%</p> <!-- Stress level -->
+      <p>Nivel de Estrés</p>
+    </div>
+  </div>
+  
+
+  <div class="info-cards-container">
+    <!-- Medicamentos -->
+    <div class="medications">
+      <h3>Medicamentos</h3>
+      <div class="card-container">
+        <div class="medication-card" *ngFor="let med of medications">
+          <div #pillBackground class="pill-background"></div> <!-- Animación de fondo -->
+          <div class="medication-info">
+            <h4>{{ med.name }}</h4>
+            <p>{{ med.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="appointments">
+      <h3>Citas</h3>
+      <div class="card-container">
+        <div class="appointment-card" *ngFor="let appointment of appointments">
+          <div #calendarBackground class="calendar-background"></div> <!-- Animación de fondo -->
+          <div class="appointment-info">
+            <h4>{{ appointment.date }} - {{ appointment.time }}</h4>
+            <p>{{ appointment.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+  <!-- Botones -->
+  <div class="clearfix">
+    <button class="btn-back" (click)="goBack()">Volver a Lista de Pacientes</button>
+    <button class="btn-report" (click)="generateReport()">Generar Informe</button>
+  </div>
+</div>

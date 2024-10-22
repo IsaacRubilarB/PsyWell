@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <!-- Contenedor principal del dashboard -->
+  <div class="header">
+    <img src="assets/logo.png" alt="PsyWell Logo" class="logo" />
+    <h1 class="welcome-message">Bienvenida, Dra. {{ psicologoName }}</h1>
+  </div>
+
+  <!-- Resumen de perfil con fondo personalizado -->
+  <div class="profile-summary" [style.background-image]="fondoPerfil">
+    <div class="profile-details">
+      <h2>{{ psicologoName }}</h2>
+      <p>{{ especialidad }}</p>
+      <p>Experiencia: {{ aniosExperiencia }} años</p>
+    </div>
+    <img src="assets/patient.png" alt="Foto de Usuario" class="profile-picture" />
+
+    <!-- Botón para cambiar fondo -->
+    <button class="btn-change-background" (click)="fileInputRef.click()">Cambiar</button>
+    <input type="file" accept="image/*" (change)="onBackgroundUpload($event)" #fileInputRef style="display: none" />
+  </div>
+
+  <!-- Sección de Recordatorios y Estadísticas -->
+  <div class="info-section">
+    <!-- Recordatorios -->
+    <div class="reminder-section">
+      <h2>Recordatorios</h2>
+      <div class="reminder-list">
+        <div class="reminder-item">
+          <i class="fas fa-clock"></i>
+          <p>Revisar progreso de Cristopher Soto</p>
+          <span class="reminder-date">Fecha límite: 10/10/2024</span>
+        </div>
+        <div class="reminder-item">
+          <i class="fas fa-file-alt"></i>
+          <p>Enviar informe mensual de María González</p>
+          <span class="reminder-date">Fecha límite: 30/10/2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estadísticas de Sesiones -->
+    <div class="session-stats">
+      <div class="stat-card">
+        <i class="fas fa-user-md"></i>
+        <p>Sesiones Hoy: <strong>3</strong></p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-calendar-week"></i>
+        <p>Sesiones de la Semana: <strong>15</strong></p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-user"></i>
+        <p>Pacientes Activos: <strong>10</strong></p>
+      </div>
+    </div>
+  </div>
+</div>

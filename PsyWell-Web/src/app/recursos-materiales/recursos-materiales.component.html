@@ -1,0 +1,21 @@
+<app-navbar></app-navbar> <!-- El navbar debe ir aquí, al inicio -->
+
+<div class="carousel-container">
+    <div class="carousel">
+      <div class="carousel-card" *ngFor="let item of items">
+        <div class="card-content">
+          <img [src]="item.imagen" alt="{{ item.titulo }}" class="card-image">
+          <h2>{{ item.titulo }}</h2>
+          <p>{{ item.descripcion }}</p>
+          <div class="card-buttons">
+            <button class="btn-ver">{{ item.btnVerTexto }}</button>
+            <button class="btn-subir">{{ item.btnSubirTexto }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Controles del carrusel -->
+    <button class="control-prev" (click)="prevSlide()">&#10094;</button>
+    <button class="control-next" (click)="nextSlide()">&#10095;</button>
+</div>

@@ -1,0 +1,45 @@
+<div class="login-page" [ngClass]="{ 'flipped': !isLogin }">
+    <div class="login-container">
+        <!-- Frente: Iniciar Sesión -->
+        <div class="front-side" *ngIf="isLogin">
+            <img src="assets/logo.png" alt="Logo de PsyWell">
+            <h2>Iniciar Sesión</h2>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" placeholder="Ingresa tu correo">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            </div>
+            <!-- Llamamos a onLogin() al hacer clic en el botón -->
+            <button (click)="onLogin()">Ingresar</button>
+            <p class="toggle-text">¿No tienes cuenta? <span (click)="flip()">Regístrate aquí</span></p>
+            <p class="social-text">O inicia sesión con:</p>
+            <div class="social-icons">
+                <img src="assets/ios.png" alt="LinkedIn">
+                <img src="assets/google.png" alt="Google">
+            </div>
+        </div>
+
+        <!-- Reverso: Crear Cuenta -->
+        <div class="back-side" *ngIf="!isLogin">
+            <img src="assets/logo.png" alt="Logo de PsyWell">
+            <h2>Crear Cuenta</h2>
+            <div class="form-group">
+                <label for="register-email">Correo electrónico</label>
+                <input type="email" id="register-email" placeholder="Ingresa tu correo">
+            </div>
+            <div class="form-group">
+                <label for="register-password">Contraseña</label>
+                <input type="password" id="register-password" placeholder="Ingresa tu contraseña">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirmar contraseña</label>
+                <input type="password" id="confirm-password" placeholder="Confirma tu contraseña">
+            </div>
+            <button>Registrarse</button>
+            <p class="toggle-text">¿Ya tienes cuenta? <span (click)="flip()">Inicia sesión</span></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a class="navbar-logo" routerLink="/dashboard">
+        <img src="assets/logo.png" alt="Logo">
+      </a>
+      <span class="navbar-title">PsyWell</span>
+    </div>
+
+    <ul class="navbar-menu">
+      <li class="navbar-item">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="navbar-item">
+        <a routerLink="/patients" routerLinkActive="active">Pacientes</a>
+      </li>
+      <li class="navbar-item">
+        <a routerLink="/citas" routerLinkActive="active">Citas</a>
+      </li>
+      <li class="navbar-item">
+        <a routerLink="/recursos-materiales" routerLinkActive="active">Recursos</a>
+      </li>
+      <li class="navbar-item">
+        <a routerLink="/reports" routerLinkActive="active">Reportes</a>
+      </li>
+    </ul>
+
+    <div class="navbar-profile">
+      <a routerLink="/login" class="profile-link">Cerrar Sesión</a>
+    </div>
+
+    <!-- Botón hamburguesa -->
+    <button class="hamburger" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>

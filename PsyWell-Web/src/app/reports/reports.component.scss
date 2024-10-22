@@ -1,0 +1,158 @@
+.reports-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 1100px;
+  margin: 100px auto; /* Aumentar el margen superior para separar el contenedor del navbar */
+  color: #fff;
+  box-shadow: 0 0 15px 3px #ffc107;
+
+  h1 {
+    text-align: center;
+    font-size: 38px;
+    color: #f7f7f7;
+    margin-bottom: 30px;
+
+    @media (max-width: 768px) {
+      font-size: 30px; /* Reduce el tamaño en pantallas más pequeñas */
+    }
+
+    @media (max-width: 480px) {
+      font-size: 24px; /* Reduce aún más en pantallas de móvil */
+    }
+  }
+
+  .filter-section {
+    text-align: right;
+    margin-bottom: 20px;
+
+    label {
+      color: #ffc107;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    select {
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #f7f7f7;
+      color: #000;
+      border: 2px solid #ffc107;
+    }
+
+    @media (max-width: 768px) {
+      text-align: center; /* Centra el filtro en pantallas más pequeñas */
+    }
+  }
+
+  .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .report-item {
+      position: relative;
+      background-color: rgba(50, 50, 50, 0.85);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.1);
+      border-left: 5px solid #028cdb;
+      overflow: hidden;
+      min-height: 150px; /* Ajusta la altura mínima para uniformidad */
+      justify-content: space-between; /* Alinea el contenido del informe */
+
+      .animation-background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .report-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        position: relative;
+
+        h2 {
+          margin: 0;
+          font-size: 24px;
+          color: #f7f4ea;
+          flex: 1; /* Asegura que el título ocupe el espacio disponible */
+
+          
+          @media (max-width: 768px) {
+            font-size: 20px; /* Reduce el tamaño en pantallas más pequeñas */
+          }
+
+          @media (max-width: 480px) {
+            font-size: 18px; /* Ajusta para pantallas móviles */
+          }
+        }
+
+        p {
+          margin: 10px 0;
+          font-size: 18px;
+          color: #ffc107;
+          flex: 2; /* Ajusta para que el texto del párrafo tenga un tamaño relativo */
+
+
+          @media (max-width: 768px) {
+            font-size: 16px;
+          }
+
+          @media (max-width: 480px) {
+            font-size: 14px;
+          }
+        }
+
+        .btn-view-report {
+          background-color: #429e0c;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 6px;
+          color: #fff;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          align-self: center; 
+          margin-left: auto; 
+          margin-top: 10px;
+          align-items: center; /* Alinea el ícono y el texto en el centro */
+
+
+          &:hover {
+            background-color: #ffca28;
+            box-shadow: 0 0 12px 4px #ffc107;
+          }
+
+          img {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+          }
+
+          @media (max-width: 768px) {
+            padding: 10px 15px; /* Ajusta el tamaño del botón */
+          }
+
+          @media (max-width: 480px) {
+            padding: 8px 12px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px; /* Reduce el padding en pantallas más pequeñas */
+  }
+
+  @media (max-width: 480px) {
+    padding: 15px; /* Aún más pequeño en móviles */
+  }
+}
