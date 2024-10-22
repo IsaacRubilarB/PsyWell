@@ -1,0 +1,3 @@
+[submodule "PsyWellAPP"]
+	path = PsyWellAPP
+	url = https://github.com/IsaacRubilarB/PsyWellAPP.git
