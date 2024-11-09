@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
   <!-- <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" /> -->
-<!-- <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" /> -->
+  <!-- <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" /> -->
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://apis.google.com https://accounts.google.com; object-src 'self';">
   <title>PsywellWeb</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/logo.ico">
+
+  <!-- Cargar el script de Google API -->
+  <script async defer src="https://apis.google.com/js/api.js"></script>
+
+  <!-- Cargar el script para Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- <script src="https://apis.google.com/js/api.js"></script> -->
 </head>
 <body>
   <app-root></app-root>

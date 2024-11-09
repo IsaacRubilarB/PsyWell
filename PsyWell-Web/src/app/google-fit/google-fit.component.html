@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+
+<!-- Mostrar mensaje de error si ocurre alguno -->
+<div *ngIf="errorMessage" class="error-message">
+  <p>{{ errorMessage }}</p>
+</div>
+
+<!-- Botones de Autenticación -->
+<div class="auth-buttons">
+  <button (click)="signIn()" *ngIf="!isLogin" title="Iniciar sesión en Google Fit" class="auth-button">Iniciar Sesión</button>
+  <button (click)="signOut()" *ngIf="isLogin" title="Cerrar sesión en Google Fit" class="auth-button">Cerrar Sesión</button>
+</div>
+
+<!-- Si está autenticado, mostrar los datos de pasos -->
+<div *ngIf="isLogin && stepsData">
+  <h3>Datos de pasos:</h3>
+  <pre>{{ stepsData | json }}</pre>
+</div>

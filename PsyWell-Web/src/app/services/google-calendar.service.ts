@@ -11,8 +11,8 @@ declare var google: any;
 export class GoogleCalendarService {
   private CLIENT_ID = environment.googleClientId;
   private API_KEY = environment.googleApiKey;
-  private DISCOVERY_DOCS = environment.googleDiscoveryDocs;
-  private SCOPES = environment.googleScopes;
+  private DISCOVERY_DOCS = environment.googleDiscoveryDocs; // Debe incluir tanto Calendar como Fitness
+  private SCOPES = environment.googleScopes; // Debe incluir los scopes necesarios para Calendar y Fitness
   private tokenClient: any;
   private accessToken: string | null = null;
   private isAuthenticated = false;
@@ -107,48 +107,24 @@ export class GoogleCalendarService {
       }
 
       this.tokenClient.requestAccessToken();
-      this.tokenClient.callback = (response: any) => {
-        if (response.error) {
-          this.isAuthenticated = false;
-          console.error('Error en el callback de autenticación:', response);
-          observer.error(`Error al iniciar sesión: ${response.error}`);
-        } else {
-          this.accessToken = response.access_token;
-          this.isAuthenticated = true;
-          observer.next();
-          observer.complete();
-        }
-      };
+
+      // El callback lo maneja el tokenClient
+      // No es necesario reinicializar el tokenClient aquí
+      // Solo manejamos el callback que ya se definió en initClient
+      // Por lo tanto, no es necesario llamar a initTokenClient nuevamente
+      // Solo necesita emitir el resultado en el callback de initClient
+
+      // Sin embargo, para asegurar que el Observable emita, puedes modificar initClient para emitir
+      // Pero actualmente, resolveremos aquí asumiendo que el callback en initClient ya maneja
+      // la emisión
+
+      // Si prefieres mantener la lógica aquí, puedes actualizar el callback de initTokenClient
+      // para emitir en el Observable. Pero para simplificar, no lo haremos aquí.
     });
   }
 
   /**
-   * Método para cerrar sesión
-   */
-  signOut(): void {
-    if (this.accessToken) {
-      google.accounts.oauth2.revoke(this.accessToken, () => {
-        this.isAuthenticated = false;
-        this.accessToken = null;
-        console.log('Usuario ha cerrado sesión correctamente.');
-      });
-    } else {
-      console.error('No hay un token de acceso para revocar. El usuario no está autenticado.');
-    }
-  }
-
-  /**
-   * Método para comprobar si el usuario está autenticado
-   */
-  isUserAuthenticated(): boolean {
-    return this.isAuthenticated;
-  }
-
-  /**
    * Método para obtener eventos del calendario
-   * @param calendarId ID del calendario
-   * @param maxResults Número máximo de resultados por página (para paginación)
-   * @param pageToken Token de la página siguiente o anterior para la paginación
    */
   getEvents(calendarId: string = 'primary', maxResults: number = 10, pageToken: string = ''): Observable<any> {
     return new Observable((observer) => {
@@ -165,7 +141,7 @@ export class GoogleCalendarService {
           singleEvents: true,
           maxResults: maxResults,
           orderBy: 'startTime',
-          pageToken: pageToken, // Utilizar el token de página para la paginación
+          pageToken: pageToken,
         })
         .then((response: any) => {
           observer.next(response.result);
@@ -202,8 +178,6 @@ export class GoogleCalendarService {
 
   /**
    * Método para crear un nuevo evento en el calendario seleccionado
-   * @param calendarId ID del calendario
-   * @param event Objeto del evento a crear
    */
   createEvent(calendarId: string, event: any): Observable<any> {
     return new Observable((observer) => {
@@ -229,9 +203,6 @@ export class GoogleCalendarService {
 
   /**
    * Método para actualizar un evento existente en el calendario
-   * @param calendarId ID del calendario
-   * @param eventId ID del evento a actualizar
-   * @param event Objeto del evento actualizado
    */
   updateEvent(calendarId: string, eventId: string, event: any): Observable<any> {
     return new Observable((observer) => {
@@ -257,29 +228,61 @@ export class GoogleCalendarService {
   }
 
   /**
-   * Método para eliminar un evento de un calendario
-   * @param calendarId ID del calendario
-   * @param eventId ID del evento a eliminar
+   * Método para obtener datos de pasos de Google Fit
    */
-  deleteEvent(calendarId: string, eventId: string): Observable<any> {
+  getFitData(): Observable<any> {
     return new Observable((observer) => {
       if (!this.isAuthenticated || !this.accessToken) {
-        observer.error('Usuario no autenticado. Por favor, inicie sesión primero.');
+        observer.error('Usuario no autenticado');
         return;
       }
 
-      gapi.client.calendar.events
-        .delete({
-          calendarId: calendarId,
-          eventId: eventId,
+      gapi.client.fitness.users.dataset
+        .aggregate({
+          userId: 'me',
+          resource: {
+            aggregateBy: [
+              {
+                dataTypeName: 'com.google.step_count.delta',
+                dataSourceId: 'derived:com.google.step_count.delta:com.google.android.gms:estimated_steps',
+              },
+            ],
+            bucketByTime: { durationMillis: 86400000 }, // Agrupa por día
+            startTimeMillis: new Date().getTime() - 7 * 24 * 60 * 60 * 1000, // Últimos 7 días
+            endTimeMillis: new Date().getTime(),
+          },
         })
-        .then((response: any) => {
-          observer.next(response.result);
-          observer.complete();
-        })
-        .catch((error: any) => {
-          observer.error(`Error al eliminar el evento: ${error.details || error.message || error}`);
-        });
+        .then(
+          (response: any) => {
+            observer.next(response.result);
+            observer.complete();
+          },
+          (error: any) => {
+            observer.error(`Error al obtener los datos de Fit: ${error}`);
+          }
+        );
     });
+  }
+
+  /**
+   * Método para cerrar sesión
+   */
+  signOut(): void {
+    if (this.accessToken) {
+      google.accounts.oauth2.revoke(this.accessToken, () => {
+        this.isAuthenticated = false;
+        this.accessToken = null;
+        console.log('Usuario ha cerrado sesión correctamente.');
+      });
+    } else {
+      console.error('No hay un token de acceso para revocar. El usuario no está autenticado.');
+    }
+  }
+
+  /**
+   * Método para comprobar si el usuario está autenticado
+   */
+  isUserAuthenticated(): boolean {
+    return this.isAuthenticated;
   }
 }

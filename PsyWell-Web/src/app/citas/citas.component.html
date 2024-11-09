@@ -2,7 +2,7 @@
 
 <div class="citas-container">
   <h1>Citas</h1>
-  
+
   <!-- Mostrar las primeras 4 citas -->
   <div class="cita-list-wrapper">
     <div class="cita-list" *ngIf="citas.length > 0">
@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Mostrar citas adicionales con scroll si existen más de 4 citas -->
   <div class="ver-mas-citas" *ngIf="citas.length > 4">
     <div class="cita-card" *ngFor="let cita of citas.slice(4)" [ngClass]="cita.estado">
@@ -46,3 +46,10 @@
 
 <!-- Calendar Integration Component debajo de las citas -->
 <app-calendar-integration></app-calendar-integration>
+
+<!-- Google Fit Component -->
+<app-google-fit></app-google-fit>
+
+<!-- Por ejemplo, en tu template principal -->
+<a routerLink="/google-fit">Ir a Google Fit</a>
+
