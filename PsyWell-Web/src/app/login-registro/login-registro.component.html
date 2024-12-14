@@ -1,45 +1,82 @@
-<div class="login-page" [ngClass]="{ 'flipped': !isLogin }">
-    <div class="login-container">
-        <!-- Frente: Iniciar Sesión -->
-        <div class="front-side" *ngIf="isLogin">
-            <img src="assets/logo.png" alt="Logo de PsyWell">
-            <h2>Iniciar Sesión</h2>
-            <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" placeholder="Ingresa tu correo">
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" placeholder="Ingresa tu contraseña">
-            </div>
-            <!-- Llamamos a onLogin() al hacer clic en el botón -->
-            <button (click)="onLogin()">Ingresar</button>
-            <p class="toggle-text">¿No tienes cuenta? <span (click)="flip()">Regístrate aquí</span></p>
-            <p class="social-text">O inicia sesión con:</p>
-            <div class="social-icons">
-                <img src="assets/ios.png" alt="LinkedIn">
-                <img src="assets/google.png" alt="Google">
-            </div>
-        </div>
+<div class="container">
+    <div class="login-page" [ngClass]="{ 'flipped': !isLogin }">
+        <div class="login-container">
+            <!-- Frente: Iniciar Sesión -->
+            <div class="front-side" *ngIf="isLogin">
+                <img src="assets/logo.png" alt="Logo de PsyWell" class="logo">
+                <h2>Iniciar Sesión</h2>
+                <div class="form-group">
+                    <label for="email">📧 Correo electrónico</label>
+                    <input type="email" id="email" [(ngModel)]="email" placeholder="Ingresa tu correo" [readonly]="isGoogleLogin" />
+                </div>
+                <div class="form-group">
+                    <label for="password">🔑 Contraseña</label>
+                    <input type="password" id="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña">
+                </div>
 
-        <!-- Reverso: Crear Cuenta -->
-        <div class="back-side" *ngIf="!isLogin">
-            <img src="assets/logo.png" alt="Logo de PsyWell">
-            <h2>Crear Cuenta</h2>
-            <div class="form-group">
-                <label for="register-email">Correo electrónico</label>
-                <input type="email" id="register-email" placeholder="Ingresa tu correo">
+                <!-- Mensaje de error -->
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+
+                <button class="btn" type="button" (click)="onLogin()">✔️ Ingresar</button>
+                <p class="toggle-text">¿No tienes cuenta? <span (click)="flip()">Regístrate aquí</span></p>
+
+                <p class="social-text">O inicia sesión con:</p>
+                <div class="social-icons">
+                    <img src="assets/link.png" alt="LinkedIn">
+                    <img src="assets/google.png" alt="Google" (click)="signInWithGoogle()"> 
+                </div>
             </div>
-            <div class="form-group">
-                <label for="register-password">Contraseña</label>
-                <input type="password" id="register-password" placeholder="Ingresa tu contraseña">
+
+            <!-- Reverso: Crear Cuenta -->
+            <div class="back-side" *ngIf="!isLogin">
+                <img src="assets/logo.png" alt="Logo de PsyWell" class="logo">
+                <h2>Crear Cuenta</h2>
+                <div class="form-group">
+                    <label for="register-nombre">👥 Nombre</label>
+                    <input type="text" id="register-nombre" [(ngModel)]="nombre" placeholder="Ingrese nombre o alias" required>
+                    <div *ngIf="!nombre && nombreTouched" class="error-message">El nombre es obligatorio.</div>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">📧 Correo electrónico</label>
+                    <input type="email" id="register-email" [(ngModel)]="email" placeholder="Ingresa tu correo" required [readonly]="isGoogleLogin">
+                    <div *ngIf="!email && emailTouched" class="error-message">Por favor, introduce un correo electrónico válido.</div>
+                </div>
+                <!-- Mensaje de error -->
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
+                <div class="form-group">
+                    <label for="register-fechaNacimiento">📅 Fecha de Nacimiento</label>
+                    <input type="date" id="register-fechaNacimiento" [(ngModel)]="fechaNacimiento" required>
+                    <div *ngIf="!fechaNacimiento && fechaNacimientoTouched" class="error-message">La fecha de nacimiento es obligatoria.</div>
+                </div>
+                <div class="form-group">
+                    <label for="register-genero">Género</label>
+                    <select id="register-genero" [(ngModel)]="genero" required>
+                        <option value="">Selecciona tu género</option>
+                        <option value="masculino">👦 Masculino</option>
+                        <option value="femenino">👩 Femenino</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                    <div *ngIf="!genero && generoTouched" class="error-message">El género es obligatorio.</div>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">🔒 Contraseña</label>
+                    <input type="password" id="register-password" [(ngModel)]="password" placeholder="Ingresa tu contraseña" required>
+                    <div *ngIf="!password && passwordTouched" class="error-message">La contraseña es obligatoria.</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">🔒 Confirmar contraseña</label>
+                    <input type="password" id="confirm-password" [(ngModel)]="confirmPassword" placeholder="Confirma tu contraseña" required>
+                    <div *ngIf="password !== confirmPassword && confirmPassword" class="error-message">Las contraseñas no coinciden.</div>
+                </div>
+
+                <button class="btn" type="button" (click)="onRegister()">Registrarse</button> 
+                <p class="toggle-text">¿Ya tienes cuenta? <span (click)="flip()">Inicia sesión</span></p>
             </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirmar contraseña</label>
-                <input type="password" id="confirm-password" placeholder="Confirma tu contraseña">
-            </div>
-            <button>Registrarse</button>
-            <p class="toggle-text">¿Ya tienes cuenta? <span (click)="flip()">Inicia sesión</span></p>
         </div>
     </div>
 </div>

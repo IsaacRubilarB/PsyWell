@@ -17,7 +17,6 @@
     margin: 0 auto;
   }
 
-  /* Nueva sección para combinar logo y título */
   .navbar-brand {
     display: flex;
     align-items: center;
@@ -36,7 +35,6 @@
     }
   }
 
-  /* Estilos para el menú */
   .navbar-menu {
     list-style: none;
     display: flex;
@@ -66,17 +64,51 @@
 
   /* Sección de perfil */
   .navbar-profile {
-    .profile-link {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      padding: 8px 12px;
-      border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+    .btn-logout {
       background-color: #d9534f;
-      transition: background-color 0.3s ease;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
 
       &:hover {
         background-color: #c9302c;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        background-color: #ac2925;
+        transform: translateY(0px);
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, #c9302c, #d9534f, #f0ad4e);
+        z-index: -1;
+        filter: blur(8px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:hover:before {
+        opacity: 1;
       }
     }
   }
@@ -147,6 +179,568 @@
     /* Mostrar el botón de hamburguesa */
     .hamburger {
       display: flex;
+    }
+  }
+}
+
+/* Animación de spin */
+@keyframes spin-border {
+  0% {
+    border-bottom-color: #ffc107;
+  }
+  50% {
+    border-bottom-color: #42b983;
+  }
+  100% {
+    border-bottom-color: #ffc107;
+  }
+}
+
+.notas-postit-wrapper {
+  position: absolute;
+  top: 90px;
+  left: 15px; /* Ajusta la posición inicial */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.nota-desplegable {
+  width: 200px; /* Ajusta el ancho completo del post-it */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  transform: translateX(-135px); /* Mueve más hacia afuera en estado contraído */
+  overflow: hidden; /* Evita que el texto se desborde */
+  white-space: nowrap; /* Mantiene el texto en una sola línea */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+}
+
+.nota-desplegable.expand {
+  transform: translateX(0); /* Se despliega completamente dentro de la pantalla */
+  white-space: normal; /* Permite múltiples líneas en el estado expandido */
+  overflow: visible; /* Muestra todo el contenido */
+}
+
+.nota-header {
+  display: flex;
+  justify-content: space-between; /* Ajusta los elementos dentro del header */
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap; /* Evita salto de línea */
+  overflow: hidden; /* Controla el desbordamiento */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si es necesario */
+}
+
+.nota-header .clave {
+  margin-left: auto; /* Empuja la palabra clave a la derecha en estado contraído */
+  text-align: right;
+  color: #555; /* Color más tenue para diferenciarlo */
+  transition: all 0.3s ease; /* Transición suave al expandir */
+}
+
+/* Cambia la alineación de la palabra clave en estado expandido */
+.nota-desplegable.expand .nota-header .clave {
+  margin-left: 0; /* Mueve la palabra clave a la izquierda */
+  text-align: left;
+  color: #000; /* Cambia el color si es necesario */
+}
+
+.nota-contenido {
+  margin-top: 10px;
+  font-size: 14px;
+  max-width: calc(100vw - 50px); /* Limita el ancho para que no se salga */
+  max-height: calc(100vh - 50px); /* Limita la altura para que no se salga */
+  overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+  animation: fadeIn 0.3s ease;
+  text-align: left; /* Asegura que el contenido expandido esté alineado a la izquierda */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nota-delgada {
+  width: 200px; /* Ajusta el ancho */
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.nota-delgada-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flecha {
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.nota-delgada-content.open .flecha {
+  transform: rotate(180deg);
+}
+
+.nota-detalle {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #333;
+  animation: fadeIn 0.3s ease;
+}
+
+.notification-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 5px 8px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* Media Queries */
+
+/* Escritorios grandes (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .navbar {
+    padding: 15px 30px; /* Aumenta el padding horizontal */
+  }
+
+  .navbar .navbar-container {
+    max-width: 1400px;
+  }
+
+  .navbar .navbar-title {
+    font-size: 28px; /* Títulos más grandes */
+  }
+
+  .navbar-menu .navbar-item a {
+    font-size: 18px;
+    padding: 10px 15px; /* Más espacio entre enlaces */
+  }
+
+  .navbar-profile .btn-logout {
+    font-size: 18px;
+    padding: 12px 18px;
+  }
+
+  .notas-postit-wrapper {
+    top: 100px; /* Espaciado superior */
+    left: 20px;
+  }
+
+  .nota-desplegable,
+  .nota-delgada {
+    width: 240px;
+  }
+
+  .nota-header {
+    font-size: 16px;
+  }
+
+  .nota-contenido {
+    font-size: 15px;
+  }
+}
+
+/* Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 10px 20px; /* Reduce padding */
+  }
+
+  .navbar-container {
+    flex-direction: column; /* Coloca los elementos en columna */
+    align-items: center;
+    gap: 10px;
+  }
+
+  .navbar-title {
+    font-size: 22px;
+  }
+
+  .navbar-menu {
+    gap: 15px;
+  }
+
+  .navbar-menu .navbar-item a {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  .navbar-profile .btn-logout {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .notas-postit-wrapper {
+    top: 80px;
+    left: 10px;
+    gap: 10px;
+  }
+
+  .nota-desplegable,
+  .nota-delgada {
+    width: 200px;
+  }
+
+  .nota-header {
+    font-size: 14px;
+  }
+
+  .nota-contenido {
+    font-size: 13px;
+  }
+}
+
+/* Móviles (max-width: 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 8px 15px; /* Menos padding en móviles */
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .navbar-title {
+    font-size: 18px;
+  }
+
+  .navbar-menu {
+    flex-direction: column; /* Menú vertical */
+    top: 60px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-top: 2px solid #ffc107;
+  }
+
+  .navbar-menu .navbar-item a {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .navbar-profile {
+    margin-top: 10px; /* Separa el perfil del resto */
+  }
+
+  .btn-logout {
+    font-size: 12px;
+    padding: 6px 10px; /* Botón más compacto */
+  }
+
+  .hamburger {
+    width: 25px;
+    height: 25px;
+  }
+
+  .hamburger span {
+    height: 2px;
+  }
+
+  .notas-postit-wrapper {
+    top: 70px;
+    left: 5px;
+    gap: 8px;
+  }
+
+  .nota-desplegable,
+  .nota-delgada {
+    width: 180px;
+  }
+
+  .nota-header {
+    font-size: 12px;
+  }
+
+  .nota-contenido {
+    font-size: 12px;
+  }
+}
+
+/* Móviles pequeños (max-width: 576px) */
+@media (max-width: 576px) {
+  .navbar {
+    padding: 5px 10px;
+  }
+
+  .navbar-title {
+    font-size: 16px;
+  }
+
+  .navbar-menu .navbar-item a {
+    font-size: 12px;
+    padding: 5px 7px;
+  }
+
+  .navbar-profile .btn-logout {
+    font-size: 10px;
+    padding: 5px 8px;
+    max-width: 100%; /* Asegura que el botón no desborde */
+    text-align: center;
+  }
+
+  .notas-postit-wrapper {
+    top: 60px;
+    left: 0;
+    gap: 5px;
+  }
+
+  .nota-desplegable,
+  .nota-delgada {
+    width: 160px;
+    padding: 8px;
+  }
+
+  .nota-header {
+    font-size: 10px;
+  }
+
+  .nota-contenido {
+    font-size: 11px;
+  }
+}
+
+.navbar {
+  background-color: #17365aa6;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  border-bottom: 4px solid transparent;
+  animation: spin-border 5s linear infinite;
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos bajen de línea en pantallas pequeñas */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Espacio interno lateral */
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .navbar-logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .navbar-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      color: #ffc107;
+      font-weight: 600;
+    }
+  }
+
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+
+    .navbar-item {
+      a {
+        color: #e6e6e6;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: #ffc107;
+          color: #000;
+        }
+
+        &.active {
+          background-color: #ffc107;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .navbar-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    width: 100%;
+    max-width: 200px; /* Limita el ancho en pantallas grandes */
+    margin-top: 10px; /* Espaciado adicional para pantallas pequeñas */
+
+    .btn-logout {
+      background-color: #d9534f;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      max-width: 100%; /* Asegura que no se desborde */
+      white-space: nowrap; /* Mantiene el texto en una línea */
+      text-align: center;
+
+      &:hover {
+        background-color: #c9302c;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .hamburger {
+    display: none; /* Oculto por defecto */
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+
+      span {
+        width: 100%;
+        height: 3px;
+        background: #ffc107;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      &.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .navbar-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px; /* Espaciado entre elementos */
+    }
+
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      width: 100%;
+      padding: 20px 0;
+      border-top: 2px solid #ffc107;
+
+      &.open {
+        display: flex;
+      }
+
+      .navbar-item a {
+        font-size: 16px;
+        padding: 10px 15px;
+      }
+    }
+
+    .navbar-profile {
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .btn-logout {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .navbar-menu {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .btn-logout {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+
+    .hamburger {
+      width: 25px;
+      height: 25px;
+
+      span {
+        height: 2px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .navbar-container {
+      padding: 10px;
+      flex-direction: column;
+    }
+
+    .navbar-menu {
+      gap: 10px;
+    }
+
+    .navbar-profile {
+      width: 100%;
+    }
+
+    .btn-logout {
+      font-size: 10px;
+      padding: 5px 8px;
     }
   }
 }

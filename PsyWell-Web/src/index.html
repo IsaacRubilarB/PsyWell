@@ -1,20 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" /> -->
-  <!-- <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" /> -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://apis.google.com https://accounts.google.com; object-src 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://maps.googleapis.com https://apis.google.com https://accounts.google.com; object-src 'self';">
+
   <title>PsywellWeb</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/logo.ico">
 
-  <!-- Cargar el script de Google API -->
-  <script async defer src="https://apis.google.com/js/api.js"></script>
+  <!-- Carga del script de Google Maps -->
 
-  <!-- Cargar el script para Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFJUcrBDDLPM2SscMvi1x_jUv6Wlqnukg&libraries=places"
+  async
+  defer
+></script>
+
+
 </head>
 <body>
   <app-root></app-root>

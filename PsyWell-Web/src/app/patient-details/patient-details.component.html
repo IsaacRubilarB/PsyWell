@@ -2,72 +2,92 @@
 
 <div class="patient-details">
   <h1>Detalles del Paciente</h1>
+  
   <div class="patient-profile">
-    <img class="patient-photo" src="assets/patient.png" alt="Foto del paciente" />
+    <img class="patient-photo" [src]="patientDetails.photo || 'assets/patient.png'" alt="Foto del paciente" />
     <div class="patient-info">
       <h2>{{ patientDetails.name }}</h2>
       <p><strong>Edad:</strong> {{ patientDetails.age }} Años</p>
       <p><strong>Diagnóstico:</strong> {{ patientDetails.diagnosis }}</p>
-      <p><strong>Notas:</strong> {{ patientDetails.notes }}</p>
     </div>
+
+    <button class="btn-open-modal" (click)="openFichaPacienteModal()">Abrir Ficha del Paciente</button>
   </div>
 
+  <!-- Sección de datos en vivo -->
   <div class="charts-container">
-    <!-- Animación del Corazón y BPM dinámico -->
     <div class="chart-wrapper">
       <div #heartAnimation class="lottie-animation"></div>
-      <p class="bpm-display">{{ bpm }} BPM</p> <!-- BPM -->
+      <p class="bpm-display">{{ bpm }} BPM</p>
       <p>Frecuencia Cardíaca</p>
     </div>
   
-    <!-- Animación de horas de sueño -->
     <div class="chart-wrapper">
-      <div #sleepAnimation class="lottie-animation-sleep"></div>
-      <p class="sleep-display">{{ sleepHours }} hrs</p> <!-- Sleep hours -->
+      <div #saturationAnimation class="lottie-animation"></div>
+      <p class="saturation-display">{{ saturationLevel }} %</p>
+      <p>Saturación de Oxígeno</p>
+    </div>
+  
+    <div class="chart-wrapper">
+      <div #stepsAnimation class="lottie-animation"></div>
+      <p class="steps-display">{{ steps }}</p>
+      <p>Pasos</p>
+    </div>
+  
+    <div class="chart-wrapper">
+      <div #sleepAnimation class="lottie-animation"></div>
+      <p class="sleep-display">{{ sleep }} hrs</p>
       <p>Horas de Sueño</p>
     </div>
-  
-    <!-- Velocímetro para el estrés -->
-    <div class="chart-wrapper">
-      <div #stressAnimation class="lottie-animation-stress"></div>
-      <p class="stress-display">{{ stressLevel }}%</p> <!-- Stress level -->
-      <p>Nivel de Estrés</p>
-    </div>
   </div>
+
+  <div class="weekly-data-graph">
+    <h2>Resumen Semanal: Frecuencia Cardíaca, Saturación y Sueño</h2>
+    <canvas id="weeklyDataChartMain"></canvas>
+  </div>
+  
+  <div class="steps-summary">
+    <h2>Resumen Semanal: Pasos</h2>
+    <p class="steps-summary-text">Total de pasos de la semana: <strong>{{ totalWeeklySteps }}</strong></p>
+  </div>
+  
+  
+  
+  
   
 
-  <div class="info-cards-container">
-    <!-- Medicamentos -->
-    <div class="medications">
-      <h3>Medicamentos</h3>
-      <div class="card-container">
-        <div class="medication-card" *ngFor="let med of medications">
-          <div #pillBackground class="pill-background"></div> <!-- Animación de fondo -->
-          <div class="medication-info">
-            <h4>{{ med.name }}</h4>
-            <p>{{ med.description }}</p>
-          </div>
-        </div>
-      </div>
+  <app-reports
+  [patientId]="patientId"
+  [psychologistId]="psychologistId"
+  [patientDetails]="patientDetails"
+  [psychologistName]="psychologistName"
+  [bpm]="bpm"
+  [saturationLevel]="saturationLevel"
+  [steps]="steps"
+  [sleep]="sleep"
+  [bpmWeekly]="bpmWeekly"
+  [saturationLevelWeekly]="saturationLevelWeekly"
+  [stepsWeekly]="stepsWeekly"
+  [sleepWeekly]="sleepWeekly">
+</app-reports>
+
+
+
+ <!-- Modal de Ficha del Paciente -->
+<div *ngIf="isFichaPacienteModalOpen" class="modal-container">
+  <div class="modal-content">
+    <div class="modal-scrollable">
+      <!-- Contenido del modal desplazable -->
+      <app-ficha-paciente
+        *ngIf="isFichaPacienteModalOpen"
+        [patientId]="patientId"
+        [psychologistId]="psychologistId"
+        (closeModalEvent)="closeFichaPacienteModal()">
+      </app-ficha-paciente>
     </div>
-  
-    <div class="appointments">
-      <h3>Citas</h3>
-      <div class="card-container">
-        <div class="appointment-card" *ngFor="let appointment of appointments">
-          <div #calendarBackground class="calendar-background"></div> <!-- Animación de fondo -->
-          <div class="appointment-info">
-            <h4>{{ appointment.date }} - {{ appointment.time }}</h4>
-            <p>{{ appointment.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  
-  <!-- Botones -->
-  <div class="clearfix">
-    <button class="btn-back" (click)="goBack()">Volver a Lista de Pacientes</button>
-    <button class="btn-report" (click)="generateReport()">Generar Informe</button>
+    <!-- Botón de cierre -->
+    <button class="close-modal" (click)="closeFichaPacienteModal()">✖</button>
   </div>
+</div>
+
 </div>

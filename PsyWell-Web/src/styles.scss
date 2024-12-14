@@ -1,3 +1,6 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; // Puedes cambiar el tema si prefieres otro
+
+
 body, html {
   margin: 0;
   padding: 0;
@@ -98,3 +101,4 @@ body::after {
     background-color: #e6f2ff;
   }
 }
+

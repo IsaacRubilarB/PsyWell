@@ -1,36 +1,22 @@
-<app-navbar></app-navbar> <!-- Navbar agregado -->
-
 <div class="reports-container">
-  <h1>Informes Disponibles</h1>
+    <h1 class="reports-title">Gestor de Informes</h1>
   
-  <!-- Rango de tiempo -->
-  <div class="filter-section">
-    <label for="timeRange">Rango de Tiempo:</label>
-    <select id="timeRange">
-      <option value="1">Última Semana</option>
-      <option value="2">Último Mes</option>
-      <option value="3">Último Año</option>
-    </select>
-  </div>
-  
-  <!-- Listado de informes -->
-  <div class="report-list">
-    <div class="report-item">
-      <div #informeAnimation class="animation-background"></div> <!-- Animación de fondo -->
-      <div class="report-content">
-        <h2>Informe de Salud Mental</h2>
-        <p>Este informe cubre el seguimiento de los aspectos emocionales y psicológicos del paciente.</p>
-        <button class="btn-view-report">Descargar Informe <img src="assets/pdf.png" alt="PDF Icon"></button>
-      </div>
+    <div class="report-filters">
+      <label for="time-frame" class="filter-label">Rango de Tiempo:</label>
+      <select id="time-frame" class="time-frame-select" [(ngModel)]="timeFrame" (change)="onTimeFrameChange($event)">
+        <option value="weekly">Semanal</option>
+        <option value="monthly">Mensual</option>
+        <option value="quarterly">Trimestral</option>
+        <option value="yearly">Anual</option>
+      </select>
     </div>
-
-    <div class="report-item">
-      <div #informeAnimation class="animation-background"></div> <!-- Animación de fondo -->
-      <div class="report-content">
-        <h2>Informe de Salud Fisiológica</h2>
-        <p>Este informe detalla las métricas fisiológicas, incluyendo frecuencia cardíaca, horas de sueño y niveles de estrés.</p>
-        <button class="btn-view-report">Descargar Informe <img src="assets/pdf.png" alt="PDF Icon"></button>
-      </div>
+  
+    <div class="report-actions">
+      <button class="btn-report pdf-button" (click)="exportPDF()">Descargar PDF</button>
+      <button class="btn-report excel-button" (click)="exportExcel()">Descargar Excel</button>
+    </div>
+  
+    <div class="clearfix">
     </div>
   </div>
-</div>
+  

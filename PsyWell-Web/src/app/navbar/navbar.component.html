@@ -2,38 +2,64 @@
   <div class="navbar-container">
     <div class="navbar-brand">
       <a class="navbar-logo" routerLink="/dashboard">
-        <img src="assets/logo.png" alt="Logo">
+        <img src="assets/logo.png" alt="Logo" />
       </a>
       <span class="navbar-title">PsyWell</span>
     </div>
 
     <ul class="navbar-menu">
       <li class="navbar-item">
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/dashboard" routerLinkActive="active">Home</a>
       </li>
       <li class="navbar-item">
         <a routerLink="/patients" routerLinkActive="active">Pacientes</a>
       </li>
       <li class="navbar-item">
-        <a routerLink="/citas" routerLinkActive="active">Citas</a>
+        <a routerLink="/citas" routerLinkActive="active" (click)="irACitas()">
+          Citas
+          <span *ngIf="nuevasCitasCount > 0" class="notification-badge">
+            {{ nuevasCitasCount }}
+          </span>
+        </a>
       </li>
       <li class="navbar-item">
         <a routerLink="/recursos-materiales" routerLinkActive="active">Recursos</a>
       </li>
       <li class="navbar-item">
-        <a routerLink="/reports" routerLinkActive="active">Reportes</a>
+        <a routerLink="/biblioteca" routerLinkActive="active">Biblioteca</a>
       </li>
     </ul>
 
     <div class="navbar-profile">
-      <a routerLink="/login" class="profile-link">Cerrar Sesión</a>
+      <button class="btn-logout" (click)="logout()">🔒 Cerrar sesión</button>
     </div>
 
-    <!-- Botón hamburguesa -->
     <button class="hamburger" (click)="toggleMenu()">
       <span></span>
       <span></span>
       <span></span>
     </button>
+  </div>
+
+  <!-- Notas importantes -->
+  <div class="notas-postit-wrapper">
+    <div
+      *ngFor="let nota of notasImportantes; let i = index"
+      class="nota-desplegable"
+      [class.expand]="nota.isOpen"
+      (click)="toggleNota(i)"
+      [style.background-color]="getPostitColor(i)"
+    >
+      <!-- Palabra clave como texto visible en estado contraído -->
+      <div class="nota-header">
+        <span class="clave">{{ nota.palabraClave || 'Sin Palabra Clave' }}</span>
+      </div>
+
+      <!-- Contenido detallado cuando la nota está expandida -->
+      <div class="nota-contenido" *ngIf="nota.isOpen">
+        <p>{{ nota.titulo }}</p>
+        <p>{{ nota.contenido }}</p>
+      </div>
+    </div>
   </div>
 </nav>

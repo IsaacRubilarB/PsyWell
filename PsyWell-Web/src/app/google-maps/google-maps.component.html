@@ -1,0 +1,22 @@
+<div class="map-wrapper">
+  <!-- Barra de búsqueda y botones -->
+  <div class="map-search">
+    <input
+      type="text"
+      id="searchBox"
+      placeholder="Buscar ubicación..."
+      (keyup.enter)="searchLocation()"
+    />
+    <button type="button" class="btn-current-location" (click)="getCurrentLocation()">
+      📍 Mi ubicación
+    </button>
+  </div>
+
+  <!-- Contenedor del mapa -->
+  <div class="map-container" id="map"></div>
+
+  <!-- Dirección seleccionada -->
+  <div class="selected-location">
+    <p><strong>Dirección seleccionada:</strong> {{ selectedAddress }}</p>
+  </div>
+</div>

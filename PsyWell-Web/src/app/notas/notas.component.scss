@@ -1,0 +1,213 @@
+.notas-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #1e2a38;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+
+  .notas-titulo {
+    text-align: center;
+    color: #ffd966;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffd966;
+    padding-bottom: 10px;
+  }
+
+  .notas-lista {
+    .nota-item {
+      background: #293b57;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, background-color 0.3s;
+
+      &:hover {
+        transform: translateY(-3px);
+        background: #314766;
+      }
+
+      .nota-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+          margin: 0;
+          font-size: 1.4rem;
+          color: #ffd966;
+          word-break: break-word; // Manejo de palabras largas
+          max-width: 70%; // Limita el ancho para evitar colisión con el botón eliminar
+        }
+
+        .btn-eliminar {
+          background: none;
+          border: none;
+          color: #ff6666;
+          cursor: pointer;
+          font-size: 1.2rem;
+          padding: 5px;
+
+          &:hover {
+            color: #ff0000;
+          }
+        }
+      }
+
+      .nota-titulo {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        color: #b3c2d1;
+        font-weight: bold;
+        word-break: break-word; // Manejo de títulos largos
+      }
+
+      .nota-contenido {
+        margin: 10px 0;
+        color: #b3c2d1;
+        font-size: 1rem;
+        line-height: 1.5;
+        text-align: justify;
+      }
+
+      .nota-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .fecha {
+          font-size: 0.9rem;
+          color: #b3c2d1;
+        }
+
+        .importante {
+          color: #ffd966;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .form-nueva-nota {
+    display: flex;
+    flex-direction: column;
+    background: #293b57;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    label {
+      color: #ffd966;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    input,
+    textarea,
+    select {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      background: #2d3e50;
+      color: #fff;
+      font-size: 1rem;
+
+      &:focus {
+        border-color: #ffd966;
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 217, 102, 0.5);
+      }
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical; // Permite al usuario ajustar el tamaño vertical
+    }
+
+    button {
+      background: #ffd966;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background: #ffca2c;
+      }
+    }
+  }
+
+  // Responsividad
+  @media (max-width: 768px) {
+    .notas-container {
+      padding: 15px;
+
+      .notas-titulo {
+        font-size: 1.5rem;
+      }
+
+      .notas-lista {
+        .nota-item {
+          padding: 10px;
+
+          .nota-header {
+            h3 {
+              font-size: 1.2rem;
+            }
+          }
+
+          .nota-titulo {
+            font-size: 1rem;
+          }
+
+          .nota-contenido {
+            font-size: 0.9rem;
+          }
+
+          .nota-footer {
+            .fecha {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+
+      .form-nueva-nota {
+        padding: 10px;
+
+        label {
+          font-size: 0.9rem;
+        }
+
+        input,
+        textarea,
+        select {
+          font-size: 0.9rem;
+          padding: 8px;
+        }
+
+        button {
+          font-size: 0.9rem;
+          padding: 8px 12px;
+        }
+      }
+    }
+  }
+}
+
+.swal2-popup {
+  font-size: 1.2rem;
+  border-radius: 10px;
+}

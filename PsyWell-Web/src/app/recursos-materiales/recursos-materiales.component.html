@@ -1,21 +1,95 @@
-<app-navbar></app-navbar> <!-- El navbar debe ir aquí, al inicio -->
+<app-navbar></app-navbar>
 
-<div class="carousel-container">
-    <div class="carousel">
-      <div class="carousel-card" *ngFor="let item of items">
-        <div class="card-content">
-          <img [src]="item.imagen" alt="{{ item.titulo }}" class="card-image">
-          <h2>{{ item.titulo }}</h2>
-          <p>{{ item.descripcion }}</p>
-          <div class="card-buttons">
-            <button class="btn-ver">{{ item.btnVerTexto }}</button>
-            <button class="btn-subir">{{ item.btnSubirTexto }}</button>
-          </div>
+<div class="resources-container">
+  <h1>Recursos y materiales</h1>
+
+  <div class="categories">
+    <div
+      *ngFor="let item of sidebarItems"
+      class="category-card"
+      [ngClass]="{ 'active': selectedCategory === item.tipo }"
+      (click)="selectCategory(item.tipo)"
+    >
+      <i class="material-icons">{{ item.icono }}</i>
+      <h3>{{ item.titulo }}</h3>
+    </div>
+  </div>
+
+  <div class="files-section">
+    <h2>{{ getTitleForCategory(selectedCategory) }}</h2>
+    <input
+      type="text"
+      placeholder="Buscar recurso..."
+      [(ngModel)]="searchQuery"
+      (input)="filterResources()"
+    />
+    <div *ngIf="filteredResources.length > 0" class="file-grid">
+      <div *ngFor="let resource of filteredResources" class="file-card">
+        <h4>{{ resource.titulo }}</h4>
+
+        <!-- Mostrar contenido dependiendo del tipo de recurso -->
+        <div *ngIf="selectedCategory === 'videos'" class="video-container">
+          <iframe
+            width="100%"
+            height="100%"
+            [src]="resource.url | safe"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+          <p *ngIf="!resource.url">URL no válida</p>
+        </div>
+
+        <img *ngIf="resource.portada" [src]="resource.portada" alt="Portada" class="portada-preview" />
+
+      <!-- Reproductor de audio para la categoría de audios -->
+<div *ngIf="selectedCategory === 'audios'" class="audio-player">
+  <div class="audio-info">
+    <div class="audio-details">
+      <h4 class="audio-title">{{ resource.titulo }}</h4>
+    </div>
+  </div>
+
+  <div class="audio-controls">
+    <button class="play-button" (click)="toggleAudio(resource)">
+      <i class="material-icons">{{ isPlaying(resource) ? 'pause' : 'play_arrow' }}</i>
+    </button>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" [style.width.%]="resource.id === activeResourceId ? (currentAudioTime / duration) * 100 : 0"></div>
+    </div>
+    <span class="audio-duration">{{ formatTime(resource.id === activeResourceId ? duration : 0) }}</span>
+  </div>
+  
+</div>
+
+<p class="audio-description">{{ resource.descripcion }}</p>
+
+
+
+        <!-- Botones de acción -->
+        <div class="button-group">
+          <button *ngIf="selectedCategory === 'libros'" class="view-button" (click)="viewResource(resource)">
+            <i class="material-icons">search</i>
+          </button>
+          <button class="delete-button" (click)="deleteResource(resource.id, selectedCategory)">
+            <i class="material-icons">delete</i>
+          </button>
         </div>
       </div>
     </div>
-  
-    <!-- Controles del carrusel -->
-    <button class="control-prev" (click)="prevSlide()">&#10094;</button>
-    <button class="control-next" (click)="nextSlide()">&#10095;</button>
+
+    <p *ngIf="filteredResources.length === 0" class="no-data-message">
+      No se encontraron recursos para esta categoría.
+    </p>
+    <button class="add-button" (click)="openModal()">
+      Añadir Nuevo {{ getTitleForCategory(selectedCategory) }}
+    </button>
+  </div>
+</div>
+
+<!-- Modal para el formulario de agregar recurso -->
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <button class="close-modal" (click)="closeModal()">Cerrar</button>
+    <app-formulario-recursos (resourceAdded)="fetchResources(selectedCategory)"></app-formulario-recursos>
+  </div>
 </div>

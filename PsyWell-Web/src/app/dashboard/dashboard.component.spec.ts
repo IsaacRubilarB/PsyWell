@@ -21,7 +21,7 @@ describe('DashboardComponent', () => {
   });
 
   it('should initialize with default values', () => {
-    expect(component.psicologoName).toEqual('Cristina Zapata');
+    expect(component.psicologoName).toEqual('');
     expect(component.especialidad).toEqual('Psicóloga Especialista en Salud Mental');
     expect(component.aniosExperiencia).toEqual(10);
   });
@@ -29,7 +29,7 @@ describe('DashboardComponent', () => {
   it('should filter sticky notes by title', () => {
     component.searchQuery = 'Nota Rápida 1';
     component.onSearch({ target: { value: 'Nota Rápida 1' } });
-    expect(component.filteredStickyNotes.length).toBe(1);
+    expect(component.filteredNotes.length).toBe(1);
   });
 
   it('should add a new sticky note', () => {
@@ -37,7 +37,7 @@ describe('DashboardComponent', () => {
     component.newNoteContent = 'Contenido de la nueva nota';
     component.addStickyNote();
     expect(component.stickyNotes.length).toBe(3); // Ya había 2 notas
-    expect(component.stickyNotes[2].titulo).toEqual('Nueva Nota');
+    expect(component.stickyNotes[2].title).toEqual('Nueva Nota');
   });
 
   it('should remove a sticky note', () => {

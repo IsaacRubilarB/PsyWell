@@ -1,0 +1,70 @@
+<form (ngSubmit)="submitForm()" class="upload-form">
+  <h2>Subir Nuevo Recurso</h2>
+
+  <!-- Selección del tipo de recurso -->
+  <div class="form-group">
+    <label for="tipo">Tipo de Recurso</label>
+    <select id="tipo" [(ngModel)]="tipoRecurso" name="tipo" (change)="onTipoRecursoChange()" required>
+      <option value="">Selecciona un tipo</option>
+      <option value="videos">Videos</option>
+      <option value="libros">Libros</option>
+      <option value="audios">Audios</option>
+      <option value="foros">Foros</option>
+    </select>
+  </div>
+
+  <!-- Campo para el título -->
+  <div class="form-group">
+    <label for="titulo">Título</label>
+    <input type="text" id="titulo" [(ngModel)]="titulo" name="titulo" placeholder="Escribe el título" required />
+  </div>
+
+  <!-- Campo del autor (visible solo para libros) -->
+  <div class="form-group" *ngIf="tipoRecurso === 'libros'">
+    <label for="autor">Autor</label>
+    <input type="text" id="autor" [(ngModel)]="autor" name="autor" placeholder="Escribe el autor" required />
+  </div>
+
+  <!-- Campo para la categoría (visible solo para libros) -->
+  <div class="form-group" *ngIf="tipoRecurso === 'libros'">
+    <label for="categoria">Categoría</label>
+    <input type="text" id="categoria" [(ngModel)]="categoria" name="categoria" placeholder="Escribe la categoría" />
+  </div>
+
+  <!-- Campo para la descripción -->
+  <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <textarea
+      id="descripcion"
+      [(ngModel)]="descripcion"
+      name="descripcion"
+      placeholder="Escribe una breve descripción"
+      required
+    ></textarea>
+  </div>
+
+  <!-- Enlace de YouTube (solo para videos) -->
+  <div class="form-group" *ngIf="tipoRecurso === 'videos'">
+    <label for="videoUrl">Enlace de YouTube</label>
+    <input
+      type="url"
+      id="videoUrl"
+      [(ngModel)]="videoUrl"
+      name="videoUrl"
+      placeholder="https://www.youtube.com/watch?v=..."
+      required
+    />
+  </div>
+
+  <!-- Subida de archivo (para libros y audios) -->
+  <div class="form-group" *ngIf="tipoRecurso === 'libros' || tipoRecurso === 'audios'">
+    <label for="archivo">Archivo</label>
+    <input type="file" id="archivo" (change)="onFileSelected($event)" required />
+  </div>
+
+
+  <!-- Botón para enviar -->
+  <div class="form-actions">
+    <button type="submit" class="btn-submit">Subir Recurso</button>
+  </div>
+</form>

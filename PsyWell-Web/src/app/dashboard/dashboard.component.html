@@ -4,56 +4,112 @@
   <!-- Contenedor principal del dashboard -->
   <div class="header">
     <img src="assets/logo.png" alt="PsyWell Logo" class="logo" />
-    <h1 class="welcome-message">Bienvenida, Dra. {{ psicologoName }}</h1>
+    <h1 class="welcome-message">
+      Bienvenid{{ genero === 'femenino' ? 'a' : 'o' }},
+      <ng-container *ngIf="genero === 'femenino'; else masculino">Dra.</ng-container>
+      <ng-template #masculino>Dr.</ng-template>
+      {{ psicologoName }}
+    </h1>
   </div>
 
-  <!-- Resumen de perfil con fondo personalizado -->
-  <div class="profile-summary" [style.background-image]="fondoPerfil">
+  <!-- Perfil y Portada -->
+  <div class="profile-summary" [style.backgroundImage]="fondoPerfil || 'url(assets/default-cover.jpg)'">
+    <!-- Foto de Perfil -->
+    <div class="profile-picture-container" (click)="triggerFileInput('perfil')">
+      <img [src]="fotoPerfil || 'assets/default-profile.png'" alt="Foto de Usuario" class="profile-picture" />
+      <span class="edit-icon">✏️</span>
+    </div>
+
+    <!-- Detalles del Perfil -->
     <div class="profile-details">
       <h2>{{ psicologoName }}</h2>
-      <p>{{ especialidad }}</p>
-      <p>Experiencia: {{ aniosExperiencia }} años</p>
+      <p>
+        <ng-container *ngIf="genero === 'femenino'; else masculino">
+          Psicóloga
+        </ng-container>
+        <ng-template #masculino>
+          Psicólogo
+        </ng-template>
+        Especialista en Salud Mental
+      </p>
     </div>
-    <img src="assets/patient.png" alt="Foto de Usuario" class="profile-picture" />
 
-    <!-- Botón para cambiar fondo -->
-    <button class="btn-change-background" (click)="fileInputRef.click()">Cambiar</button>
-    <input type="file" accept="image/*" (change)="onBackgroundUpload($event)" #fileInputRef style="display: none" />
+    <!-- Botón para Cambiar Portada -->
+    <button class="btn-change-background" (click)="triggerFileInput('portada')">✏️</button>
+
+    <!-- Inputs Ocultos para Subida de Archivos -->
+    <input
+      type="file"
+      accept="image/*"
+      (change)="onUpload($event, 'portada')"
+      id="portada"
+      style="display: none"
+    />
+    <input
+      type="file"
+      accept="image/*"
+      (change)="onUpload($event, 'perfil')"
+      id="perfil"
+      style="display: none"
+    />
   </div>
 
-  <!-- Sección de Recordatorios y Estadísticas -->
+  <!-- Sección de Recordatorios y Emociones -->
   <div class="info-section">
-    <!-- Recordatorios -->
-    <div class="reminder-section">
-      <h2>Recordatorios</h2>
-      <div class="reminder-list">
-        <div class="reminder-item">
-          <i class="fas fa-clock"></i>
-          <p>Revisar progreso de Cristopher Soto</p>
-          <span class="reminder-date">Fecha límite: 10/10/2024</span>
-        </div>
-        <div class="reminder-item">
-          <i class="fas fa-file-alt"></i>
-          <p>Enviar informe mensual de María González</p>
-          <span class="reminder-date">Fecha límite: 30/10/2024</span>
+    <div class="recordatorios-emociones-container">
+      <!-- Recordatorios -->
+      <div class="reminder-section">
+        <h2>Recordatorios</h2>
+        <div class="reminder-list">
+          <div *ngIf="recordatorios.length > 0; else noRecordatorios">
+            <div *ngFor="let cita of recordatorios" class="reminder-item" (click)="seleccionarCita(cita)">
+              <div class="icon-container">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <div class="reminder-text">
+                <p class="reminder-title"><i class="fas fa-user"></i> Sesión con: <span>{{ cita.pacienteNombre }}</span></p>
+                <p class="reminder-location"><i class="fas fa-map-marker-alt"></i> 🗺️ Ubicación: <span>{{ cita.ubicacion }}</span></p>
+                <p class="reminder-date">
+                  <i class="fas fa-calendar"></i> 📅 Fecha: <span>{{ cita.fecha | date: 'dd/MM/yyyy' }}</span> 
+                  - <i class="fas fa-clock"></i> ⌚ Hora: <span>{{ cita.horaInicio }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <ng-template #noRecordatorios>
+            <p>No tienes citas programadas.</p>
+          </ng-template>
         </div>
       </div>
-    </div>
 
-    <!-- Estadísticas de Sesiones -->
-    <div class="session-stats">
-      <div class="stat-card">
-        <i class="fas fa-user-md"></i>
-        <p>Sesiones Hoy: <strong>3</strong></p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-calendar-week"></i>
-        <p>Sesiones de la Semana: <strong>15</strong></p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-user"></i>
-        <p>Pacientes Activos: <strong>10</strong></p>
+      <!-- Carrusel de Emociones -->
+      <div class="emociones-section">
+        <h2>Emociones Registradas</h2>
+        <div *ngIf="emocionesPaciente && emocionesPaciente.length > 0; else noEmociones" class="carousel-container">
+          <button class="prev-button" (click)="prevSlide()">‹</button>
+          <div class="carousel-wrapper">
+            <div
+              class="emocion-item"
+              *ngFor="let emocion of emocionesPaciente; let i = index"
+              [class.active]="i === currentSlide"
+            >
+              <!-- Contenedor para emoción y fecha -->
+              <div class="emocion-header">
+                <span class="emocion-emoji">{{ emocion.emoji }}</span>
+                <span class="emocion-fecha">{{ emocion.fecha | date: 'dd/MM/yyyy' }}</span>
+              </div>
+              <!-- Contenedor para los comentarios -->
+              <p class="emocion-comentarios">📝 {{ emocion.comentarios }}</p>
+            </div>
+          </div>
+          <button class="next-button" (click)="nextSlide()">›</button>
+        </div>
+        <ng-template #noEmociones>
+          <p class="placeholder"> ✔️ Haz clic en un paciente para ver sus emociones registradas.</p>
+        </ng-template>
       </div>
     </div>
   </div>
+
+  <app-notas></app-notas>
 </div>

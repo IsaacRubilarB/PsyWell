@@ -1,0 +1,167 @@
+<div class="modal-container">
+  <div class="modal-content animate-modal">
+    <button class="close-modal" (click)="closeModal()">✖</button>
+
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="progressPercentage"></div>
+      </div>
+      <p class="progress-text">{{ progressPercentage }}% completado</p>
+    </div>
+
+    <h2 class="modal-title">Ficha del Paciente</h2>
+
+    <form (ngSubmit)="onSubmit()" class="ficha-form" novalidate>
+      <!-- Información Personal -->
+      <div class="section">
+        <h3>Información Personal</h3>
+        <div class="input-group">
+          <div class="input-item">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" [(ngModel)]="paciente.nombres" name="nombre" readonly />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-item">
+            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+            <input type="text" id="fechaNacimiento" [value]="formattedFechaNacimiento" readonly />
+          </div>
+
+          <div class="input-item">
+            <label for="genero">Género</label>
+            <select id="genero" [(ngModel)]="paciente.genero" name="genero" disabled>
+              <option value="masculino">👨 Masculino</option>
+              <option value="femenino">👩 Femenino</option>
+              <option value="otro">🌈 Otro</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-item">
+          <label for="estadoCivil">Estado Civil</label>
+          <select id="estadoCivil" [(ngModel)]="paciente.estadoCivil" name="estadoCivil" required>
+            <option value="" disabled>Seleccione</option>
+            <option value="soltero">Soltero</option>
+            <option value="casado">Casado</option>
+            <option value="divorciado">Divorciado</option>
+            <option value="viudo">Viudo</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div class="section">
+        <h3>Contacto</h3>
+        <div class="input-group">
+          <div class="input-item">
+            <label for="correo">Correo Electrónico</label>
+            <input type="email" id="correo" [(ngModel)]="paciente.correo" name="correo" readonly />
+          </div>
+        </div>
+
+        <div class="input-group contact-phones">
+          <div class="input-item">
+            <label for="telefono">Teléfono</label>
+            <div class="phone-input">
+              <span class="flag-icon">🇨🇱 +56</span>
+              <input
+                type="tel"
+                id="telefono"
+                [(ngModel)]="paciente.telefono"
+                name="telefono"
+                placeholder="Ingrese teléfono"
+                maxlength="15"
+              />
+            </div>
+          </div>
+        
+          <div class="input-item">
+            <label for="telefonoEmercia">Teléfono de Emergencia</label>
+            <input
+              type="tel"
+              id="telefonoEmercia"
+              [(ngModel)]="paciente.telefonoEmercia"
+              name="telefonoEmercia"
+              placeholder="Ingrese teléfono de emergencia"
+              required
+              pattern="^[0-9+()\- ]*$"
+              maxlength="15"
+            />
+          </div>
+        </div>
+        
+        
+        <div class="input-group">
+          <div class="input-item">
+            <label for="direccion">Dirección</label>
+            <input
+              type="text"
+              id="direccion"
+              [(ngModel)]="paciente.direccion"
+              name="direccion"
+              placeholder="Ingrese dirección"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Notas de la Sesión -->
+<div class="section">
+  <h3>Notas de la Sesión</h3>
+  <div class="input-group">
+    <textarea
+      id="notas"
+      [(ngModel)]="paciente.notas"
+      name="notas"
+      placeholder="Ingrese las notas"
+      rows="1"
+      (input)="expandTextarea($event)"
+    ></textarea>
+  </div>
+</div>
+
+<!-- Medicamentos -->
+<div class="section">
+  <h3>Medicamentos</h3>
+  <div class="input-group">
+    <textarea
+      id="medicamentos"
+      [(ngModel)]="paciente.medicamentos"
+      name="medicamentos"
+      placeholder="Ingrese medicamentos"
+      rows="1"
+      (input)="expandTextarea($event)"
+    ></textarea>
+  </div>
+</div>
+
+<!-- Diagnóstico -->
+<div class="section">
+  <h3>Diagnóstico</h3>
+  <div class="input-group">
+    <textarea
+      id="diagnostico"
+      [(ngModel)]="paciente.diagnostico"
+      name="diagnostico"
+      placeholder="Ingrese el diagnóstico"
+      required
+      rows="1"
+      (input)="expandTextarea($event)"
+    ></textarea>
+  </div>
+</div>
+
+
+      <button type="submit" class="save-button" [disabled]="!isFormComplete()">Guardar Ficha</button>
+    </form>
+
+    <!-- Mensaje de éxito al guardar -->
+    <div *ngIf="showSuccessMessage" class="success-alert animate-success">
+      <p>Ficha guardada correctamente ✔️</p>
+    </div>
+  </div>
+</div>

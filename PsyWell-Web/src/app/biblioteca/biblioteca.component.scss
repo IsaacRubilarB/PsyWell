@@ -1,0 +1,201 @@
+.resources-container {
+  background-color: #293b57;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  max-width: 1200px;
+  margin: 100px auto 80px;
+  text-align: center;
+
+  h2 {
+    color: #ffd966;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    margin-right: 15px; /* Espaciado entre el título y la barra de búsqueda */
+  }
+}
+
+.files-section {
+  margin-bottom: 40px;
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    label {
+      font-size: 16px;
+      color: #ffd966;
+    }
+
+    input {
+      padding: 8px 12px;
+      border: 1px solid #ffd966;
+      border-radius: 4px;
+      background-color: #34495e;
+      color: #ffffff;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+      width: 100%;
+      max-width: 300px;
+
+      &:focus {
+        box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+      }
+    }
+  }
+
+  .file-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+
+    .file-card {
+      background-color: #34495e;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      img {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        margin: 0 auto 10px;
+        border-radius: 8px;
+      }
+
+      h4 {
+        color: #ffffff;
+        font-size: 14px;
+        word-break: break-word;
+        margin-bottom: 10px;
+        min-height: 40px; /* Garantiza espacio uniforme para títulos */
+      }
+
+      .actions {
+        margin-top: auto; /* Asegura que los botones estén al final */
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        a,
+        button {
+          padding: 8px 16px;
+          font-size: 14px;
+          background-color: #3498db;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        button {
+          background-color: #e74c3c;
+        }
+
+        a:hover,
+        button:hover {
+          background-color: #2ecc71;
+          transform: scale(1.1); /* Añade un efecto de zoom */
+        }
+
+        button:hover {
+          background-color: #c0392b; /* Diferencia el color de botón */
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .resources-container {
+    margin: 80px auto 60px;
+    padding: 15px;
+  }
+
+  .files-section .file-grid {
+    grid-template-columns: repeat(4, 1fr); /* Reduce las columnas */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .resources-container {
+    margin: 60px auto 40px;
+    padding: 10px;
+  }
+
+  .files-section .file-grid {
+    grid-template-columns: repeat(3, 1fr); /* Aún menos columnas */
+    gap: 10px;
+  }
+
+  .files-section .controls input {
+    max-width: 250px; /* Ajusta el ancho del campo de búsqueda */
+  }
+}
+
+@media (max-width: 768px) {
+  .resources-container {
+    margin: 40px auto 30px;
+    padding: 10px;
+  }
+
+  .files-section .file-grid {
+    grid-template-columns: repeat(2, 1fr); /* Sólo dos columnas en tablets */
+    gap: 10px;
+  }
+
+  .files-section .file-card {
+    padding: 10px;
+  }
+
+  .files-section .controls label {
+    font-size: 14px; /* Reduce el tamaño de la etiqueta */
+  }
+
+  .files-section .controls input {
+    max-width: 200px; /* Ajusta más el ancho */
+  }
+}
+
+@media (max-width: 576px) {
+  .resources-container {
+    margin: 20px auto 20px;
+    padding: 10px;
+  }
+
+  .files-section .file-grid {
+    grid-template-columns: 1fr; /* Una sola columna en dispositivos pequeños */
+    gap: 8px;
+  }
+
+  .files-section .file-card {
+    padding: 8px;
+  }
+
+  .files-section .controls input {
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+  }
+
+  .files-section .controls {
+    flex-direction: column; /* Cambia a diseño vertical */
+    gap: 5px;
+  }
+}

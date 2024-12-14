@@ -1,0 +1,70 @@
+<div class="notas-container">
+  <h2 class="notas-titulo">Gestión de Notas</h2>
+
+  <!-- Formulario para agregar una nueva nota -->
+  <div class="form-nueva-nota">
+    <label for="palabraClave" class="form-label">Palabra Clave:</label>
+    <select
+      id="palabraClave"
+      class="form-select"
+      [(ngModel)]="nuevaNota.palabraClave"
+    >
+      <option *ngFor="let palabra of palabrasClave" [value]="palabra">
+        {{ palabra }}
+      </option>
+    </select>
+
+    <label for="titulo" class="form-label">Título:</label>
+    <input
+      id="titulo"
+      type="text"
+      class="form-input"
+      placeholder="Escribe el título de tu nota"
+      [(ngModel)]="nuevaNota.titulo"
+    />
+
+    <label for="contenido" class="form-label">Contenido:</label>
+    <textarea
+      id="contenido"
+      class="form-textarea"
+      placeholder="Escribe el contenido de tu nota"
+      [(ngModel)]="nuevaNota.contenido"
+    ></textarea>
+
+    <label for="importante" class="form-label-inline">
+      <input
+        id="importante"
+        type="checkbox"
+        class="form-checkbox"
+        [(ngModel)]="nuevaNota.esImportante"
+        (change)="verificarLimiteImportantes()"
+      />
+      <span>❕ Marcar como Importante</span>
+    </label>
+
+    <button class="btn-agregar" (click)="agregarNota()"> ➕ Agregar Nota</button>
+  </div>
+
+  <!-- Lista de notas -->
+  <div class="notas-lista" *ngIf="notas.length > 0; else noNotas">
+    <div class="nota-item" *ngFor="let nota of notas">
+      <div class="nota-header">
+        <h3 class="nota-palabra-clave">{{ nota.palabraClave }}</h3>
+        <button class="btn-eliminar" (click)="eliminarNota(nota)">🗑️</button>
+      </div>
+      <h4 class="nota-titulo">{{ nota.titulo }}</h4>
+      <p class="nota-contenido">{{ nota.contenido }}</p>
+      <div class="nota-footer">
+        <span class="nota-fecha">🕒 {{ nota.fechaCreacion | date: 'short' }}</span>
+        <span class="nota-importante" *ngIf="nota.esImportante">¡Importante!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje para cuando no hay notas -->
+  <ng-template #noNotas>
+    <div class="no-notas-placeholder">
+      <p>No hay notas disponibles. ¡Crea tu primera nota ahora!</p>
+    </div>
+  </ng-template>
+</div>

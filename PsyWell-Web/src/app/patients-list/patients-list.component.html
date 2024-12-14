@@ -2,29 +2,52 @@
 
 <div class="container">
   <div class="patients-list-container">
+    <!-- Título de la lista centrado -->
+    <h1 class="header-title">Lista de Pacientes</h1>
+
+    <!-- Barra de búsqueda y logo alineados -->
     <div class="search-bar-container">
-      <h1 class="header-title">Lista de Pacientes</h1>
+      <input type="text" placeholder="Buscar paciente..." (input)="onSearch($event)" class="search-bar" />
       <div class="logo-container">
         <img src="assets/logo.png" alt="Logo de PsyWell" />
       </div>
-      <input type="text" placeholder="Buscar paciente..." (input)="onSearch($event)" class="search-bar" />
     </div>
 
+
+
+    <!-- Lista de pacientes -->
     <div class="patients-list">
       <div *ngFor="let patient of filteredPatients" class="patient-card">
         <div class="patient-photo">
-          <img [src]="patient.photo" alt="{{ patient.name }}" />
+          <img [src]="patient.photo || './assets/profiles/default.png'" alt="{{ patient.name }}" />
         </div>
         <div class="patient-info">
           <h3 class="patient-name">{{ patient.name }}</h3>
-          <p><strong>Edad:</strong> {{ patient.age }} Años</p>
-          <p><strong>Diagnóstico:</strong> {{ patient.diagnosis }}</p>
-          <p><strong>Estado:</strong> {{ patient.emotionalStatus }}</p>
+          <div class="patient-details">
+            <p><i class="fas fa-user"></i> {{ patient.age }} Años</p>
+            <p><i class="fas fa-calendar-alt"></i> Próxima Cita: {{ patient.nextAppointment }}</p>
+             
+           
+          </div>
         </div>
         <div class="patient-actions">
-          <button class="btn-details" [routerLink]="['/patients', patient.id]">Ver Detalles</button>
+          <button class="btn-details" [routerLink]="['/patient', patient.id]">
+            <i class="fas fa-info-circle"></i> Ver detalle
+          </button>
+          <button class="btn-appointment" [routerLink]="['/citas']">
+            <i class="fas fa-calendar-plus"></i> Programar cita
+          </button>
         </div>
+        
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal para Enviar Mensaje -->
+<div *ngIf="isModalOpen" class="modal" id="modal-mensajes">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeModal()">X</button>
+    <app-mensajes [patient]="selectedPatient" (closeModal)="closeModal()"></app-mensajes>
   </div>
 </div>

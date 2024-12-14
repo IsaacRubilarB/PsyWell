@@ -1,128 +1,361 @@
 .citas-container {
+  background-color: #293b57;
   padding: 20px;
-  background-color: rgba(136, 178, 184, 0.7); /* Fondo celeste */
   border-radius: 15px;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 100px auto;
-  color: #080808; /* Texto oscuro */
-  box-shadow: 0 0 15px 3px #ffc107; /* Sombra luminosa dorada */
-  position: relative;
+  border: 2px solid #FFD966;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 
-  h1 {
+  .header-title {
+    color: #FFFFFF;
+    font-size: 32px;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 30px;
-    color: #ffffff; /* Título blanco */
-    text-shadow: 0px 0px 10px #050505; /* Sombra luminosa dorada */
   }
 
-  .cita-list {
+  /* Barra de búsqueda */
+  .search-bar-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .search-bar {
+      width: 90%;
+      max-width: 600px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+
+      &:focus {
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+      }
+    }
   }
 
-  .cita-card {
+  /* Botón para agregar cita */
+  .add-cita-button-container {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px;
-    background-color: rgba(147, 207, 150, 0); /* Fondo transparente */
-    border-radius: 10px;
-    border-left: 5px solid #ffc107; /* Borde dorado */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    gap: 15px;
-    position: relative;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('/assets/ondas.png') no-repeat center;
-      background-size: cover;
-      opacity: 0.2;
-      z-index: 0;
-    }
-
-    &:hover {
-      background-color: rgba(70, 70, 70, 0.9); /* Cambio de color en hover */
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra en hover */
-    }
-
-    .cita-imagen {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
-      z-index: 1;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .cita-info {
-      color: #ffffff;
-      z-index: 1;
-      flex: 1;
-
-      h3 {
-        font-size: 22px;
-        color: #ffc107; /* Título en dorado */
-        margin: 0;
-      }
-
-      h4 {
-        font-size: 18px;
-        margin: 5px 0;
-        color: #d4d4d4; /* Subtítulo gris claro */
-      }
-
-      p {
-        font-size: 16px;
-        color: #ffffff; /* Texto blanco */
-      }
-    }
-
-    .estado-hover {
-      position: absolute;
-      bottom: 10px;
-      right: 20px;
-      padding: 5px 10px;
-      border-radius: 5px;
-      color: #fff;
+    .btn-agregar-cita {
+      padding: 10px 20px;
+      background-color: #FFD966;
+      color: #333;
       font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s ease;
+
+      i {
+        font-size: 16px;
+      }
+
+      &:hover {
+        background-color: #e6ac00;
+      }
+    }
+  }
+
+  /* Lista de citas */
+  .citas-list {
+    .cita-card {
+      background-color: #2E3A48;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      border: 1px solid #ffffff;
+      &:hover {
+        background-color: #384b53;
+        transform: scale(1.02);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .cita-header {
+        display: flex;
+        align-items: center;
+        flex-basis: 30%;
+        gap: 15px;
+
+        .cita-photo {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .cita-info {
+          h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFD966;
+          }
+
+          p {
+            margin: 0;
+            font-size: 14px;
+            color: #d4d4d4;
+
+            i {
+              margin-right: 5px;
+              color: #FFD966;
+            }
+          }
+        }
+      }
+
+      .cita-details {
+        flex-basis: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding-left: 10px;
+        color: #d4d4d4;
+
+        p {
+          margin: 0;
+          font-size: 14px;
+
+          i {
+            margin-right: 5px;
+            color: #FFD966;
+          }
+        }
+
+        .cita-date,
+        .cita-time,
+        .cita-location,
+        .cita-comments {
+          font-size: 14px;
+        }
+      }
+
+      .cita-actions {
+        flex-basis: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+
+        .btn-editar,
+        .btn-eliminar {
+          padding: 8px 12px;
+          background-color: #FFD966;
+          color: #333;
+          font-weight: bold;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          transition: background-color 0.3s ease;
+
+          i {
+            font-size: 16px;
+          }
+
+          &:hover {
+            background-color: #e6ac00;
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    transition: all 0.3s ease-out;
+  
+    .modal-content {
+      background-color: #1e3a5f; /* Fondo del modal */
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      color: #e5e5e5;
+      border: 2px solid #ffffff;
+      animation: slideIn 0.5s ease-out;
+      display: grid;
+      gap: 1.5rem;
+  
+      h2 {
+        text-align: center;
+        color: #ffc107; /* Color del título */
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+      }
+  
+      .form-group {
+        margin-bottom: 1rem;
+        position: relative;
+  
+        label {
+          font-weight: bold;
+          color: #b0c4de; /* Color del label */
+          display: block;
+          margin-bottom: 5px;
+        }
+  
+        .input-with-icon {
+          display: flex;
+          align-items: center;
+          background-color: #2e4964; /* Fondo del input */
+          border: 1px solid #b0c4de;
+          border-radius: 5px;
+          padding: 0.5rem;
+          transition: transform 0.2s ease;
+  
+          &:hover {
+            transform: scale(1.02);
+          }
+  
+          i {
+            color: #ffc107; /* Color del ícono */
+            margin-right: 10px;
+          }
+  
+          input,
+          select,
+          textarea {
+            flex: 1;
+            border: none;
+            background: transparent; /* Fondo transparente */
+            color: #ffffff; /* Color del texto */
+            font-size: 14px;
+            outline: none;
+  
+            &::placeholder {
+              color: #b0c4de; /* Color del placeholder */
+              opacity: 0.8;
+            }
+          }
+  
+          select {
+            appearance: none; /* Eliminar estilo nativo del navegador */
+            background: #2e4964; /* Fondo del select */
+            color: #ffffff; /* Color del texto */
+            font-size: 14px;
+            padding: 0.5rem;
+  
+            option {
+              background-color: #2e4964; /* Fondo de las opciones */
+              color: #ffffff; /* Color del texto */
+            }
+          }
+  
+          textarea {
+            resize: vertical;
+          }
+        }
+      }
+  
+      /* Organizar fecha y horas en una sola fila */
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 2fr; /* Fecha más pequeña que las horas */
+        gap: 20px;
+  
+        .form-group {
+          margin-bottom: 0;
+  
+          &:first-child {
+            grid-column: span 1; /* Fecha ocupa la primera columna */
+          }
+  
+          &:nth-child(2),
+          &:nth-child(3) {
+            grid-column: span 1; /* Hora inicio y fin comparten la fila */
+          }
+        }
+      }
+    }
+  
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+  
+      .btn-primary {
+        background-color: #ffc107;
+        color: #212121;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+  
+        &:hover {
+          background-color: #f5b700;
+          transform: scale(1.05);
+        }
+      }
+  
+      .btn-secondary {
+        background-color: #555;
+        color: #fff;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+  
+        &:hover {
+          background-color: #777;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+  
+  // Animación de entrada
+  @keyframes slideIn {
+    from {
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transform: translateY(-20px);
     }
-
-    &:hover .estado-hover {
+    to {
       opacity: 1;
-    }
-
-    .estado-hover.pendiente {
-      background-color: #ffc107; /* Fondo dorado para pendientes */
-    }
-
-    .estado-hover.finalizada {
-      background-color: #429e0c; /* Fondo verde para finalizadas */
+      transform: translateY(0);
     }
   }
-}
 
-@media (max-width: 768px) {
-  .citas-container {
-    padding: 15px;
-  }
 
-  .cita-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }

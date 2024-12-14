@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+
+<div class="resources-container">
+  <!-- Contenedor para Libros -->
+  <div class="files-section">
+    <div class="controls">
+      <h2>Libros</h2>
+      <input
+        id="searchLibros"
+        type="text"
+        [(ngModel)]="filtroLibros"
+        placeholder="Buscar libros..."
+      />
+    </div>
+    <div class="file-grid books">
+      <div class="file-card" *ngFor="let libro of filtrarLibros() | slice: 0:5">
+        <img [src]="libro.portada" alt="Portada del libro" />
+        <h4>{{ libro.name }}</h4>
+        <div class="actions">
+          <a [href]="libro.webViewLink" target="_blank">Ver</a>
+          <button (click)="descargarArchivo(libro.webContentLink)">Descargar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor para Material Complementario -->
+  <div class="files-section">
+    <div class="controls">
+      <h2>Material</h2>
+      <input
+        id="searchMaterial"
+        type="text"
+        [(ngModel)]="filtroMaterial"
+        placeholder="Buscar material..."
+      />
+    </div>
+    <div class="file-grid documents">
+      <div class="file-card" *ngFor="let material of filtrarMaterial() | slice: 0:5">
+        <img [src]="material.portada" alt="Portada del material" />
+        <h4>{{ material.name }}</h4>
+        <div class="actions">
+          <a [href]="material.webViewLink" target="_blank">Ver</a>
+          <button (click)="descargarArchivo(material.webContentLink)">Descargar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

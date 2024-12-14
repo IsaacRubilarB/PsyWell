@@ -1,55 +1,170 @@
 <app-navbar></app-navbar>
 
 <div class="citas-container">
-  <h1>Citas</h1>
+  <h1 class="header-title">Citas Programadas</h1>
 
-  <!-- Mostrar las primeras 4 citas -->
-  <div class="cita-list-wrapper">
-    <div class="cita-list" *ngIf="citas.length > 0">
-      <div class="cita-card" *ngFor="let cita of citas.slice(0, 4)" [ngClass]="cita.estado">
-        <img [src]="cita.imagen" alt="Foto del paciente" class="cita-imagen">
-        <div class="cita-info">
-          <div class="cita-header">
-            <h3>{{ cita.nombre }}</h3>
-            <p class="cita-fecha">{{ cita.fecha }} - {{ cita.hora }}</p>
-          </div>
-          <h4>Resumen:</h4>
-          <p>{{ cita.resumen }}</p>
+  <!-- Barra de búsqueda -->
+  <div class="search-bar-container">
+    <input
+      type="text"
+      placeholder="Buscar cita por paciente, fecha o estado..."
+      (input)="onSearch($event)"
+      class="search-bar"
+    />
+  </div>
+
+  <!-- Botón para agregar una nueva cita -->
+  <div class="add-cita-button-container">
+    <button class="btn-agregar-cita" (click)="abrirModal()">
+      <i class="fas fa-plus-circle"></i> Agregar Cita
+    </button>
+  </div>
+
+  <!-- Lista de citas -->
+  <div class="citas-list">
+    <div *ngFor="let cita of filteredCitas" class="cita-card">
+      <div class="cita-header">
+        <div class="cita-photo">
+          <img
+            [src]="cita.fotoPaciente || './assets/profiles/default.png'"
+            alt="Foto de {{ cita.nombrePaciente }}"
+          />
         </div>
-
-        <!-- Estado de la cita: Pendiente o Finalizada -->
-        <div class="estado-hover pendiente" *ngIf="cita.estado === 'pendiente'">Pendiente</div>
-        <div class="estado-hover finalizada" *ngIf="cita.estado === 'finalizada'">Finalizada</div>
+        <div class="cita-info">
+          <h3>{{ cita.nombrePaciente }}</h3>
+          <p>
+            <i class="fas fa-info-circle"></i>
+            <strong>Estado:</strong> {{ cita.estado }}
+          </p>
+        </div>
+      </div>
+      <div class="cita-details">
+        <p class="cita-date">
+          <i class="fas fa-calendar-alt"></i>
+          <strong>Fecha:</strong> {{ cita.fecha | date: 'dd/MM/yyyy' }}
+        </p>
+        <p class="cita-time">
+          <i class="fas fa-clock"></i>
+          <strong>Hora:</strong> {{ cita.horaInicio }} - {{ cita.horaFin }}
+        </p>
+        <p class="cita-location">
+          <i class="fas fa-map-marker-alt"></i>
+          <strong>Ubicación:</strong> {{ cita.ubicacion }}
+        </p>
+        <p class="cita-comments">
+          <i class="fas fa-comment-alt"></i>
+          <strong>Comentarios:</strong> {{ cita.comentarios || 'Sin comentarios' }}
+        </p>
+      </div>
+      <div class="cita-actions">
+        <button class="btn-editar" (click)="editarCita(cita)">
+          <i class="fas fa-edit"></i> Editar
+        </button>
+        <button class="btn-eliminar" (click)="eliminarCita(cita.idCita)">
+          <i class="fas fa-trash-alt"></i> Eliminar
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Mostrar citas adicionales con scroll si existen más de 4 citas -->
-  <div class="ver-mas-citas" *ngIf="citas.length > 4">
-    <div class="cita-card" *ngFor="let cita of citas.slice(4)" [ngClass]="cita.estado">
-      <img [src]="cita.imagen" alt="Foto del paciente" class="cita-imagen">
-      <div class="cita-info">
-        <div class="cita-header">
-          <h3>{{ cita.nombre }}</h3>
-          <p class="cita-fecha">{{ cita.fecha }} - {{ cita.hora }}</p>
+  <!-- Modal para agregar o editar una cita -->
+  <div class="modal" *ngIf="mostrarModal">
+    <div class="modal-content">
+      <h2>{{ modoEdicion ? 'Editar Cita' : 'Agregar Cita' }}</h2>
+      <form [formGroup]="citaForm" (ngSubmit)="guardarCita()">
+        <!-- Sección de selección de paciente -->
+        <div class="form-group">
+          <label for="idPaciente">Paciente</label>
+          <div class="input-with-icon">
+            <i class="fas fa-user"></i>
+            <select id="idPaciente" formControlName="idPaciente" required>
+              <option *ngFor="let paciente of pacientes" [value]="paciente.idUsuario">
+                <div class="option-content">
+                  <img [src]="paciente.foto" alt="{{ paciente.nombre }}" class="option-img" />
+                  {{ paciente.nombre }}
+                </div>
+              </option>
+            </select>
+          </div>
         </div>
-        <h4>Resumen:</h4>
-        <p>{{ cita.resumen }}</p>
-      </div>
+        
 
-      <!-- Estado de la cita: Pendiente o Finalizada -->
-      <div class="estado-hover pendiente" *ngIf="cita.estado === 'pendiente'">Pendiente</div>
-      <div class="estado-hover finalizada" *ngIf="cita.estado === 'finalizada'">Finalizada</div>
+        <!-- Fecha y Hora -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <div class="input-with-icon">
+              <i class="fas fa-calendar-alt"></i>
+              <input type="date" id="fecha" formControlName="fecha" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="horaInicio">Hora de Inicio</label>
+            <div class="input-with-icon">
+              <i class="fas fa-clock"></i>
+              <input type="time" id="horaInicio" formControlName="horaInicio" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="horaFin">Hora de Fin</label>
+            <div class="input-with-icon">
+              <i class="fas fa-clock"></i>
+              <input type="time" id="horaFin" formControlName="horaFin" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Ubicación y Comentarios -->
+<div class="form-row">
+  <div class="form-group">
+    <label for="ubicacion">Ubicación</label>
+    <div class="input-with-icon">
+      <i class="fas fa-map-marker-alt"></i>
+      <input
+        type="text"
+        id="ubicacion"
+        formControlName="ubicacion"
+        placeholder="Selecciona una ubicación"
+        readonly
+      />
+      <button type="button" class="btn-map" (click)="abrirMapaModal()">🗺️</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="comentarios">Comentarios</label>
+    <div class="input-with-icon">
+      <i class="fas fa-comment-alt"></i>
+      <textarea
+        id="comentarios"
+        formControlName="comentarios"
+        placeholder="Añade comentarios para la cita..."
+      ></textarea>
     </div>
   </div>
 </div>
 
-<!-- Calendar Integration Component debajo de las citas -->
-<app-calendar-integration></app-calendar-integration>
+<!-- Google Maps Modal -->
+<div class="modal" *ngIf="mostrarMapaModal">
+  <div class="modal-content">
+    <h2>Selecciona una Ubicación</h2>
+    <app-google-maps (locationSelected)="ubicacionSeleccionada($event)"></app-google-maps>
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cerrarMapaModal()">Cerrar</button>
+      <button class="btn-primary" (click)="guardarUbicacionSeleccionada()">Guardar</button>
+    </div>
+  </div>
+</div>
 
-<!-- Google Fit Component -->
-<app-google-fit></app-google-fit>
 
-<!-- Por ejemplo, en tu template principal -->
-<a routerLink="/google-fit">Ir a Google Fit</a>
-
+        
+        <!-- Botones de acción -->
+        <div class="modal-actions">
+          <button type="submit" [disabled]="!citaForm.valid" class="btn-primary">
+            {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button type="button" (click)="cerrarModal()" class="btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
