@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permisos necesarios -->
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE" />
+    <uses-permission android:name="android.permission.health.READ_STEPS" />
+    <uses-permission android:name="android.permission.health.READ_OXYGEN_SATURATION" />
+    <uses-permission android:name="android.permission.health.READ_SLEEP" />
+    <uses-permission android:name="android.permission.ACCESS_HEALTH_DATA" />
+    <uses-permission android:name="android.permission.READ_HEALTH_DATA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- API Key para Google Maps -->
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAFJUcrBDDLPM2SscMvi1x_jUv6Wlqnukg" />
+
+    <application
+        android:name=".MyApp"
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:fullBackupContent="@xml/backup_rules"
+    android:icon="@drawable/p"
+    android:label="@string/app_name"
+    android:roundIcon="@drawable/p"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.Psywell3"
+    tools:targetApi="31">
+
+    <!-- Actividad principal -->
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:label="@string/app_name">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+            <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+        </intent-filter>
+    </activity>
+
+    <!-- Actividad de login -->
+    <activity
+        android:name=".ui.login.LoginActivity"
+        android:exported="true">
+        <!-- Otros atributos adicionales si aplica -->
+    </activity>
+</application>
+
+    <!-- Consultas e intenciones -->
+<queries>
+<package android:name="com.google.android.apps.healthdata" />
+<intent>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="http" />
+</intent>
+<intent>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="https" />
+</intent>
+<package android:name="com.google.android.youtube" />
+</queries>
+
+    </manifest>

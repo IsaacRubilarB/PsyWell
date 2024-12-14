@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E3F2FD">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
+
+        <!-- Contenedor del logo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_background">
+
+            <!-- Logo -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/p"
+                android:contentDescription="Logo de la aplicación" />
+
+            <!-- Pregunta -->
+            <TextView
+                android:id="@+id/textRegistro_emocional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cómo te sientes hoy?"
+                android:textColor="#1E88E5"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Espacio entre secciones -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <!-- Íconos de emociones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnAngry"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/angry_icon"
+                android:contentDescription="Enojo" />
+
+            <ImageButton
+                android:id="@+id/btnSad"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/sad_icon"
+                android:contentDescription="Tristeza" />
+
+            <ImageButton
+                android:id="@+id/btnNeutral"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/neutral_icon"
+                android:contentDescription="Neutral" />
+
+            <ImageButton
+                android:id="@+id/btnHappy"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/happy_icon"
+                android:contentDescription="Feliz" />
+
+            <ImageButton
+                android:id="@+id/btnExcited"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/feliz_muy"
+                android:contentDescription="Emocionado" />
+        </LinearLayout>
+
+        <!-- Contenedor dinámico para palabras clave -->
+        <LinearLayout
+            android:id="@+id/keywordsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+            <!-- Los botones serán agregados dinámicamente -->
+        </LinearLayout>
+
+        <!-- Campo de comentarios -->
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="start|top"
+            android:hint="Escribe un comentario (opcional)"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            android:textColor="#1E88E5"
+            android:textColorHint="#A9A9A9" />
+
+        <!-- Botón Guardar -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1E88E5"
+            android:text="GUARDAR"
+            android:textColor="#FFFFFF"
+            android:paddingVertical="12dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

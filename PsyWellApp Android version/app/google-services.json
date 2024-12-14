@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "471287872717",
+    "project_id": "psywell-ab0ee",
+    "storage_bucket": "psywell-ab0ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471287872717:android:e8d0d37da2ea3304057d84",
+        "android_client_info": {
+          "package_name": "com.psywell.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471287872717-5llav9vu8sqakh057lt0e2d26qvt4t4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.psywell.app",
+            "certificate_hash": "6d51e93b5f20bc82aef7e6a1058ef09277ffc9a8"
+          }
+        },
+        {
+          "client_id": "471287872717-uonv4m9k2h6llpf0r7md4l9tca5rvk7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbBaKkxOE6OQcK8jm3yS6bsF2oz4BlmxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471287872717-uonv4m9k2h6llpf0r7md4l9tca5rvk7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

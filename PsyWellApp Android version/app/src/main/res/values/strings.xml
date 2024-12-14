@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Psywell3</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Recursos</string>
+    <string name="title_notifications">Fisiologico</string>
+    <string name="buttona">vitals</string>
+    <string name="msgOne">Sin datos</string>
+    <string name="title_registro_emocional">Registro emocional</string>
+    <string name="bienvenido_a_a_psywell">Bienvenido/a a PsyWell</string>
+    <string name="agendar_cita">Agendar Cita</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+
+</resources>

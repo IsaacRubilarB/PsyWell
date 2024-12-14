@@ -1,0 +1,169 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E3F2FD"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Contenedor de la cabecera con fondo -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Título centrado de Próxima Cita -->
+
+        <!-- Card con detalles de la cita -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+
+            <!-- Imagen del Paciente -->
+            <ImageView
+                android:id="@+id/imageViewPatient"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/circle_background"
+                android:contentDescription="Foto del Paciente"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile_patient_placeholder" />
+
+            <!-- Texto de bienvenida -->
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="¡Bienvenido(a), Paciente!"
+                android:textColor="#1E88E5"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- Botón para salir -->
+            <Button
+                android:id="@+id/exitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F44336"
+                android:text="Salir"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Próxima Cita"
+            android:textColor="#1E88E5"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Detalles de la cita -->
+                <TextView
+                    android:id="@+id/psicologa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Psicóloga: Javiera Correa"
+                    android:textColor="#424242"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/inicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Inicio: Cargando..."
+                    android:textColor="#424242"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Fin: Cargando..."
+                    android:textColor="#424242"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/detalles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Detalles: Cargando..."
+                    android:textColor="#424242"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/ubicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Ubicación: Cargando..."
+                    android:textColor="#424242"
+                    android:textSize="16sp" />
+
+                <!-- Contenedor del mapa con imagen de la psicóloga centrada -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+                    <!-- Mapa (Google Maps) -->
+                    <ImageView
+                        android:id="@+id/mapPreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Vista previa del mapa"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_map_placeholder" />
+
+                    <!-- Imagen de la Psicóloga sobre el mapa -->
+                    <ImageView
+                        android:id="@+id/imageViewPsychologist"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_background"
+                        android:contentDescription="Foto de la Psicóloga"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile_placeholder" />
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
